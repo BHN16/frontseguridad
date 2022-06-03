@@ -1,18 +1,17 @@
-import logo from './Assets/Img/Melgar.png';
 import './App.css';
-import Test from './Test.js';
+import { Link, Outlet } from 'react-router-dom';
 
 function App() {
-  let isOpen = false;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Melgar el más grande.
-        </p>
-        <Test isOpen = {isOpen}/>
+      <header>
+        <h3>Página principal</h3>
       </header>
+      <nav>
+        <Link to='/login'>Login</Link>
+        <Link to='/register'>Register</Link> 
+      </nav>
+      <Outlet />
     </div>
   );
 }
