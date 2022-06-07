@@ -1,8 +1,16 @@
 import './App.css';
-import { Link, Outlet } from 'react-router-dom';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
+    <Routes>
+      <Route path='/' element={<Register />} />
+    </Routes>
+  );
+
+  /*return (
     <div className="App">
       <header>
         <h3>Página principal</h3>
@@ -11,9 +19,8 @@ function App() {
         <Link to='/login'>Login</Link>
         <Link to='/register'>Register</Link> 
       </nav>
-      <Outlet />
     </div>
-  );
+  );*/
 }
 
 export default App;
