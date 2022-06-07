@@ -27,13 +27,19 @@ function Login() {
         setErrMsg('');
     }, [user, pwd]);
 
+    const hashPassword = (p) => {
+        var crypto = require('crypto-js');
+        return crypto.SHA256(p).toString();
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina
         try { // nombreEnBD: nombreState
+            const pp = await hashPassword(pwd);
             const response = await axios.post(LOGIN_URL, 
                 JSON.stringify({
                     username: user,
-                    password: pwd
+                    password: pp
                 }), 
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -56,7 +62,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className='container'>
             <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
