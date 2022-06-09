@@ -2,12 +2,17 @@
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
+import RequireAuth from './components/Auth/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <Routes>
-      <Route path='/' element={<Dashboard />} />
+      <Route path='' element={<Login />} />
+      <Route path='register' element={<Register />} />
+      <Route element={<RequireAuth />}>
+        <Route path='home' element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 

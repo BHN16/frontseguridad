@@ -124,7 +124,7 @@ function Register() {
                 <p>
                     Already registered? <br />
                     <span className='line'>
-                        <a href='#'>Login</a>
+                        <a><Link to='/'>Login</Link></a>
                     </span>
                 </p>
             </div>
