@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BsFillHouseDoorFill, BsFillLaptopFill, BsCardList, BsFillFolderFill, BsFillBarChartFill, BsFonts, BsTable, BsPinMapFill, BsFileFontFill, BsPower } from 'react-icons/bs';
+import { BsFillHouseDoorFill, BsFillLaptopFill, BsCardList, BsFillFolderFill, BsFillBarChartFill, BsFonts, BsTable, BsPinMapFill, BsFileFontFill, BsPower, BsFillShieldLockFill } from 'react-icons/bs';
 import './Dashboard.css'
 
 function Dashboard () {
 
     return (
         <div id="conteiner3">
-            <div class="navbar">
-            </div>
             <nav class="main-menu">
                 <ul>
                     <li>
@@ -87,6 +85,7 @@ function Dashboard () {
                         </a>
                     </li>
                 </ul>
+                
 
                 <ul class="logout">
                     <li>
@@ -99,6 +98,10 @@ function Dashboard () {
                     </li>  
                 </ul>
             </nav>
+            <div class="navbar">
+                <a href="" class="logo"><i class="fa-solid fa-dumbbell"><BsFillShieldLockFill /></i>Password Manager</a>
+            </div>
+            <div class="body-text"></div>
         </div>
     )
 }
