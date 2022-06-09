@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { BsFillHouseDoorFill, BsFillLaptopFill, BsCardList, BsFillFolderFill, BsFillBarChartFill, BsFonts, BsTable, BsPinMapFill, BsFileFontFill, BsPower, BsFillShieldLockFill } from 'react-icons/bs';
+import { BsFillHouseDoorFill, BsFillStarFill, BsGearFill, BsCardList, BsPower, BsFillQuestionCircleFill, BsFillShieldLockFill } from 'react-icons/bs';
+import Password from '../Passwords/Passwords';
 import './Dashboard.css'
 
 function Dashboard () {
@@ -12,87 +13,54 @@ function Dashboard () {
                         <a href="#">
                             <i class="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
                             <span class="nav-text">
-                                Dashboard
-                            </span>
-                        </a>
-                    
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-laptop fa-2x"><BsFillLaptopFill /></i>
-                            <span class="nav-text">
-                                Stars Components
-                            </span>
-                        </a>
-                        
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                        <i class="fa fa-list fa-2x"><BsCardList /></i>
-                            <span class="nav-text">
-                                Forms
-                            </span>
-                        </a>
-                        
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                        <i class="fa fa-folder-open fa-2x"><BsFillFolderFill /></i>
-                            <span class="nav-text">
-                                Pages
+                                Todos los elementos
                             </span>
                         </a>
                     
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-bar-chart-o fa-2x"><BsFillBarChartFill /></i>
+                            <i class="fa fa-home fa-2x"><BsFillStarFill /></i>
                             <span class="nav-text">
-                                Graphs and Statistics
+                                Favoritos
                             </span>
                         </a>
                     </li>
-                    <li>
+                    <li class="has-subnav">
                         <a href="#">
-                            <i class="fa fa-font fa-2x"><BsFonts /></i>
+                            <i class="fa fa-laptop fa-2x"><BsCardList /></i>
                             <span class="nav-text">
-                            Quotes
+                                Panel de Seguridad
                             </span>
                         </a>
-                    </li>
-                    <li>
-                    <a href="#">
-                        <i class="fa fa-table fa-2x"><BsTable /></i>
-                            <span class="nav-text">
-                                Tables
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                    <a href="#">
-                            <i class="fa fa-map-marker fa-2x"><BsPinMapFill /></i>
-                            <span class="nav-text">
-                                Maps
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="fa fa-info fa-2x"><BsFileFontFill /></i>
-                            <span class="nav-text">
-                                Documentation
-                            </span>
-                        </a>
+                        
                     </li>
                 </ul>
-                
 
                 <ul class="logout">
+                    <li class="has-subnav">
+                        <a href="#">
+                        <i class="fa fa-list fa-2x"><BsGearFill /></i>
+                            <span class="nav-text">
+                                Configuración
+                            </span>
+                        </a>
+                        
+                    </li>
+                    <li class="has-subnav">
+                        <a href="#">
+                        <i class="fa fa-list fa-2x"><BsFillQuestionCircleFill /></i>
+                            <span class="nav-text">
+                                Ayuda
+                            </span>
+                        </a>
+                        
+                    </li>
                     <li>
                     <a href="#">
                             <i class="fa fa-power-off fa-2x"><BsPower /></i>
                             <span class="nav-text">
-                                Logout
+                                Cerrar Sesión
                             </span>
                         </a>
                     </li>  
@@ -101,7 +69,9 @@ function Dashboard () {
             <div class="navbar">
                 <a href="" class="logo"><i class="fa-solid fa-dumbbell"><BsFillShieldLockFill /></i>Password Manager</a>
             </div>
-            <div class="body-text"></div>
+            <div class="body-text">
+                <Password />
+            </div>
         </div>
     )
 }
