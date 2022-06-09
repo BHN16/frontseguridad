@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-.container {
+.container-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+}
+
+.login-container {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
@@ -11,7 +18,7 @@
     background-color: rgba(0,0,0,0.4);
 }
 
-form {
+.login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,7 +32,7 @@ a, a:visited {
 
 input[type="text"],
 input[type="password"],
-button,
+.login-button,
 textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 22px;
@@ -34,11 +41,11 @@ textarea {
 }
 
 label,
-button {
+.login-button {
   margin-top: 1rem;
 }
 
-button {
+.login-button {
   padding: 0.5rem;
 }
 

@@ -11,7 +11,7 @@ import { clear } from '@testing-library/user-event/dist/clear';
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const REGISTER_URL = '/register';
+const REGISTER_URL = 'http://137.184.83.170:5000/auth';
 
 function Register() {
     const userRef = useRef();
@@ -64,60 +64,70 @@ function Register() {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const email = 'asdfasdf';
         try {
             const response = await axios.post(REGISTER_URL, 
-                JSON.stringify({ username: user, password: pwd}),
+                JSON.stringify(
+                    { 
+                        username: user, 
+                        password: pwd,
+                        email: email
+                    }),
                 {
-                    headers: { 'Content-type': 'application/json' },
-                    withCredentials: true
+                    headers: { 'Content-type': 'application/json' }
                 });
+            console.log(JSON.stringify(response?.data));
+            console.log('asdf');
             setSuccess(true);
             clearFields();
         } catch (err) {
-            if(!err?.respone) {
+            if(!err?.response) {
                 setErrMsg('No server respone');
             } else if(err.response?.status === 409) {
                 setErrMsg('Username taken');
             } else {
                 setErrMsg('Registration failed');
+                console.log(err.response);
             }
         }
     }
 
     return (
-        <div>
-            <p ref={errRef} className={ errMsg? 'errmsg' : 'offscreen'} aria-live='assertive'>{ errMsg }</p>
-            <h1>Register</h1>
-            <form onSubmit={ handleSubmit }>
-                <Username 
-                    validName={ validName } 
-                    userRef={ userRef } 
-                    setUser={ setUser } 
-                    setUserFocus={ setUserFocus } 
-                    userFocus={ userFocus } 
-                    user={ user } />
-                <Password 
-                    validPwd={ validPwd } 
-                    setPwd={ setPwd } 
-                    setPwdFocus={ setPwdFocus } 
-                    pwdFocus={ pwdFocus } 
-                    pwd={ pwd } />
-                <MatchPwd
-                    validMatch={ validMatch}
-                    matchPwd={ matchPwd }
-                    setMatchPwd={ setMatchPwd }
-                    setMatchFocus={ setMatchFocus }
-                    matchFocus={ matchFocus } />
-                <button disabled={ !validName || !validPwd || !validMatch ? true : false}>
-                    Sign up
-                </button>
-            </form>
-            <p>
-                Already registered? <br />
-                <span className='line'>
-                    <a href='#'>Login</a>
-                </span>
-            </p>
+        <div className='container-register-container'>
+            <div className='register-container'>
+                <p ref={errRef} className={ errMsg? 'errmsg' : 'offscreen'} aria-live='assertive'>{ errMsg }</p>
+                <h1>Register</h1>
+                <form onSubmit={ handleSubmit } className='register-form'>
+                    <Username 
+                        validName={ validName } 
+                        userRef={ userRef } 
+                        setUser={ setUser } 
+                        setUserFocus={ setUserFocus } 
+                        userFocus={ userFocus } 
+                        user={ user } />
+                    <Password 
+                        validPwd={ validPwd } 
+                        setPwd={ setPwd } 
+                        setPwdFocus={ setPwdFocus } 
+                        pwdFocus={ pwdFocus } 
+                        pwd={ pwd } />
+                    <MatchPwd
+                        validMatch={ validMatch}
+                        matchPwd={ matchPwd }
+                        setMatchPwd={ setMatchPwd }
+                        setMatchFocus={ setMatchFocus }
+                        matchFocus={ matchFocus } />
+                    <button disabled={ !validName || !validPwd || !validMatch ? true : false} className='register-button'>
+                        Sign up
+                    </button>
+                </form>
+                <p>
+                    Already registered? <br />
+                    <span className='line'>
+                        <a href='#'>Login</a>
+                    </span>
+                </p>
+            </div>
         </div>
     )
 }

@@ -35,11 +35,11 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina
         try { // nombreEnBD: nombreState
-            const pp = await hashPassword(pwd);
+            //const pp = await hashPassword(pwd);
             const response = await axios.post(LOGIN_URL, 
                 JSON.stringify({
                     username: user,
-                    password: pp
+                    password: pwd
                 }), 
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -62,14 +62,15 @@ function Login() {
     }
 
     return (
-        <div className='container'>
+        <div className='login-container'>
             <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='login-form'>
                 <label htmlFor='username'>Username:</label>
                 <input 
                     type='text' 
                     id='username'
+                    className='username-input-container'
                     ref={userRef}
                     autoComplete='off'
                     onChange={(e) => setUser(e.target.value)}
@@ -82,7 +83,7 @@ function Login() {
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}
                     required />
-                <button>Login</button>
+                <button className='login-button'>Login</button>
             </form>
             <p>
                 Need an account?<br />

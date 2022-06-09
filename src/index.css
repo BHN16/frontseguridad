@@ -3,9 +3,6 @@
 body {
   min-height: 100vh;
   background-color: #1b1b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 html {
