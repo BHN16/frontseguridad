@@ -7,6 +7,9 @@ function Dashboard () {
 
     return (
         <div id="conteiner3">
+            <div class="navbar">
+                <a href="" class="logo"><i class="fa-solid fa-dumbbell"><BsFillShieldLockFill /></i>Password Manager</a>
+            </div>
             <nav class="main-menu">
                 <ul>
                     <li>
@@ -66,9 +69,6 @@ function Dashboard () {
                     </li>  
                 </ul>
             </nav>
-            <div class="navbar">
-                <a href="" class="logo"><i class="fa-solid fa-dumbbell"><BsFillShieldLockFill /></i>Password Manager</a>
-            </div>
             <div class="body-text">
                 <Password />
             </div>
