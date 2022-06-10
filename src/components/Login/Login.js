@@ -43,10 +43,12 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina
         const hashedPassword = await hashPassword(pwd);
+        const sendUser = user;
+        console.log(user, hashPassword);
         try { // nombreEnBD: nombreState
             const response = await axios.post(LOGIN_URL, 
                 JSON.stringify({
-                    email: user,
+                    email: sendUser,
                     password: hashedPassword
                 }), 
                 {
@@ -63,7 +65,7 @@ function Login() {
         } catch (err) {
             console.log(hashedPassword);
             if (!err?.response) {
-            setErrMsg('No server Response');
+                setErrMsg('No server Response');
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing Username or Password');
             } else if (err.response?.status === 401) {
