@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Username from './Username';
+import Email from './Email';
 import Password from './Password';
 import MatchPwd from './MartchPwd';
 import axios from '../../api/axios';
@@ -10,16 +11,24 @@ import { clear } from '@testing-library/user-event/dist/clear';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/;
 
 const REGISTER_URL = 'http://137.184.83.170:5000/auth';
 
 function Register() {
+
+    let navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
+
+    const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
     
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
@@ -38,15 +47,22 @@ function Register() {
 
     useEffect(() => {
         const result = USER_REGEX.test(user);
-        console.log(result);
-        console.log(user);
         setValidName(result);
     }, [user]);
 
     useEffect(() => {
+        const result = EMAIL_REGEX.test(email);
+        setValidEmail(result);
+    }, [email]);
+
+    useEffect(() => {
+        if (success) {
+            return navigate('/')
+        }
+    }, [success])
+
+    useEffect(() => {
         const result = PWD_REGEX.test(pwd);
-        console.log(result);
-        console.log(pwd);
         setValidPwd(result);
         const match = pwd === matchPwd;
         setValidMatch(match);
@@ -61,23 +77,29 @@ function Register() {
         setPwd('');
         setMatchPwd('');
     }
+
+    const hashPassword = (p) => {
+        var crypto = require('crypto-js');
+        return crypto.SHA256(p).toString();
+    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const email = 'asdfasdf';
+        const hashedPassword = await hashPassword(pwd);
         try {
             const response = await axios.post(REGISTER_URL, 
                 JSON.stringify(
                     { 
                         username: user, 
-                        password: pwd,
+                        password: hashedPassword,
                         email: email
                     }),
-                {
-                    headers: { 'Content-type': 'application/json' }
-                });
-            console.log(JSON.stringify(response?.data));
-            console.log('asdf');
+                    {
+                        headers: { 'Content-type': 'application/json' }
+                    });
+            //console.log(JSON.stringify(response?.data));
+            console.log(hashedPassword);
+            //console.log('asdf');
             setSuccess(true);
             clearFields();
         } catch (err) {
@@ -105,6 +127,12 @@ function Register() {
                         setUserFocus={ setUserFocus } 
                         userFocus={ userFocus } 
                         user={ user } />
+                    <Email 
+                        validEmail={ validEmail }
+                        setEmail={ setEmail }
+                        setEmailFocus={ setEmailFocus }
+                        emailFocus={ emailFocus }
+                        email={ email } />
                     <Password 
                         validPwd={ validPwd } 
                         setPwd={ setPwd } 
@@ -117,7 +145,7 @@ function Register() {
                         setMatchPwd={ setMatchPwd }
                         setMatchFocus={ setMatchFocus }
                         matchFocus={ matchFocus } />
-                    <button disabled={ !validName || !validPwd || !validMatch ? true : false} className='register-button'>
+                    <button disabled={ !validName || !validPwd || !validMatch || !validEmail ? true : false} className='register-button'>
                         Sign up
                     </button>
                 </form>

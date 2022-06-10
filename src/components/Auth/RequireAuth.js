@@ -5,10 +5,6 @@ const RequireAuth = () => {
     const { auth } = useAuth();
     const location = useLocation();
 
-    console.log("hola");
-    console.log(auth);
-    console.log("adios");
-
     return (
         window.localStorage.getItem('user-session')
             ? <Outlet />

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 import './Login.css';
@@ -7,6 +7,8 @@ import './Login.css';
 const LOGIN_URL='http://137.184.83.170:5000/login';
 
 function Login() {
+
+    let navigate = useNavigate();
     
     const { auth, setAuth } = useAuth();
 
@@ -16,6 +18,7 @@ function Login() {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [success, setSuccess] = useState('');
 
 
     useEffect(() => {
@@ -26,6 +29,12 @@ function Login() {
         setErrMsg('');
     }, [user, pwd]);
 
+    useEffect(() => {
+        if (success) {
+            return navigate('/home')
+        }
+    },[success])
+
     const hashPassword = (p) => {
         var crypto = require('crypto-js');
         return crypto.SHA256(p).toString();
@@ -33,12 +42,12 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina
+        const hashedPassword = await hashPassword(pwd);
         try { // nombreEnBD: nombreState
-            //const pp = await hashPassword(pwd);
             const response = await axios.post(LOGIN_URL, 
                 JSON.stringify({
-                    email: 'asdfasdf',
-                    password: pwd
+                    email: user,
+                    password: hashedPassword
                 }), 
                 {
                     headers: { 'Content-Type': 'application/json' }
@@ -48,11 +57,13 @@ function Login() {
                 const user = response?.data?.username;
                 const msg = response?.data?.msg;
                 setAuth({ user, email:msg }); // Guardar valores necesarios que nos devuelva el backend
-                console.log("hello there");
                 window.localStorage.setItem('user-session', JSON.stringify(response));
+                console.log(hashedPassword);
+                setSuccess(true);
         } catch (err) {
+            console.log(hashedPassword);
             if (!err?.response) {
-                setErrMsg('No server Response');
+            setErrMsg('No server Response');
             } else if (err.response?.status === 400) {
                 setErrMsg('Missing Username or Password');
             } else if (err.response?.status === 401) {
@@ -70,7 +81,7 @@ function Login() {
                 <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit} className='login-form'>
-                    <label htmlFor='username'>Username:</label>
+                    <label htmlFor='username'>Email:</label>
                     <input 
                         type='text' 
                         id='username'

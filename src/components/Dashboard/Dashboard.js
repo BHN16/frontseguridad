@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { BsFillHouseDoorFill, BsFillStarFill, BsGearFill, BsCardList, BsPower, BsFillQuestionCircleFill, BsFillShieldLockFill } from 'react-icons/bs';
 import Password from '../Passwords/Passwords';
 import './Dashboard.css'
 
 function Dashboard () {
+
+    let navigate = useNavigate();
 
     return (
         <div id="conteiner3">
@@ -60,7 +63,11 @@ function Dashboard () {
                         
                     </li>
                     <li>
-                    <a href="#">
+                    <a onClick={() => {
+                        window.localStorage.removeItem('user-session');
+                        return navigate('/');
+                    }}>
+
                             <i class="fa fa-power-off fa-2x"><BsPower /></i>
                             <span class="nav-text">
                                 Cerrar Sesión
