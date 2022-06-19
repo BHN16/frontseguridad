@@ -50,7 +50,7 @@ function Login() {
                 JSON.stringify({
                     email: sendUser,
                     password: hashedPassword
-                }), 
+                }),
                 {
                     headers: { 'Content-Type': 'application/json' }
                 });
