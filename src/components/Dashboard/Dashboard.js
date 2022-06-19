@@ -5,9 +5,7 @@ import Password from '../Passwords/Passwords';
 import './Dashboard.css'
 
 function Dashboard () {
-
     let navigate = useNavigate();
-
     return (
         <div id="conteiner3">
             <div class="navbar">
