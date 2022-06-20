@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Username from '../../components/Register/Username';
 import Email from '../../components/Register/Email';
 import Password from '../../components/Register/Password';
-import MatchPwd from '../../components/Register/MartchPwd';
+import MatchPwd from '../../components/Register/MatchPwd';
 import axios from '../../api/axios';
 import './Register.css';
 import { clear } from '@testing-library/user-event/dist/clear';
@@ -121,11 +121,11 @@ function Register() {
                 <h1>Register</h1>
                 <form onSubmit={ handleSubmit } className='register-form'>
                     <Username 
-                        validName={ validName } 
-                        userRef={ userRef } 
-                        setUser={ setUser } 
-                        setUserFocus={ setUserFocus } 
-                        userFocus={ userFocus } 
+                        validName={ validName }
+                        userRef={ userRef }
+                        setUser={ setUser }
+                        setUserFocus={ setUserFocus }
+                        userFocus={ userFocus }
                         user={ user } />
                     <Email 
                         validEmail={ validEmail }

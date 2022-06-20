@@ -31,7 +31,7 @@ function Login() {
 
     useEffect(() => {
         if (success) {
-            return navigate('/home')
+            return navigate('/home/main');
         }
     },[success])
 
