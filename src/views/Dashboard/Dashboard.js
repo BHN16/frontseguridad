@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { BsFillHouseDoorFill, BsFillStarFill, BsGearFill, BsCardList, BsPower, BsFillQuestionCircleFill, BsFillShieldLockFill } from 'react-icons/bs';
-import Password from '../Passwords/Passwords';
+import Password from '../../components/Passwords/Passwords';
 import './Dashboard.css'
 
 function Dashboard () {

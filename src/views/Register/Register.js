@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Username from './Username';
-import Email from './Email';
-import Password from './Password';
-import MatchPwd from './MartchPwd';
+import Username from '../../components/Register/Username';
+import Email from '../../components/Register/Email';
+import Password from '../../components/Register/Password';
+import MatchPwd from '../../components/Register/MartchPwd';
 import axios from '../../api/axios';
 import './Register.css';
 import { clear } from '@testing-library/user-event/dist/clear';
@@ -161,41 +161,3 @@ function Register() {
 }
 
 export default Register;
-
-    /*return (
-<Link to='/login'>Login</Link>
-        <div>
-        Pagina de register
-        <nav>
-        <Link to='/'>home</Link>
-        </nav>
-        </div>
-        )
-        <label htmlFor='username'>
-            Username
-            <span className={ validName ? 'valid' : 'hide' }>
-                <FontAwesomeIcon icon={faCheck} />
-            </span>
-            <span className={ validName || !user ? 'hide' : 'invalid'}>
-                <FontAwesomeIcon icon={faTimes} />
-            </span>
-        </label>
-        <input 
-            type='text' 
-            id='username' 
-            ref={userRef}
-            autoComplete='off'
-            onChange={(e) => setUser(e.target.value)}
-            required
-            aria-invalid={validName ? 'false' : 'true'}
-            aria-describedby='uidnote'
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)} />
-        <p
-            id='uidnote' 
-            className={ userFocus && user && !validName ? 'instructions' : 'offscreen'}>
-            <FontAwesomeIcon icon={faInfoCircle}/>
-            4 to 14 characters.<br/>
-            Must begin with a letter.<br/>
-            Letters, numbers, underscores, hyphens allowed.
-        </p>*/
