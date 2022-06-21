@@ -8,7 +8,8 @@ import Passwords from './components/Passwords/Passwords';
 import Favorites from './views/Favorites/Favorites';
 import Panel from './views/Panel/Panel';
 
-// /creds/<token>
+// /creds/ GET token
+// /cred/ PUT token
 
 function App() {
   return (

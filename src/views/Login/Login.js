@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
+import { hashPassword } from '../../utils/Encription';
 import './Login.css';
 
 const LOGIN_URL='http://137.184.83.170:5000/login';
@@ -34,11 +35,6 @@ function Login() {
             return navigate('/home/main');
         }
     },[success])
-
-    const hashPassword = (p) => {
-        var crypto = require('crypto-js');
-        return crypto.SHA256(p).toString();
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina

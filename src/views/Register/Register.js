@@ -7,6 +7,7 @@ import MatchPwd from '../../components/Register/MatchPwd';
 import axios from '../../api/axios';
 import './Register.css';
 import { clear } from '@testing-library/user-event/dist/clear';
+import { hashPassword } from '../../utils/Encription';
 //import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -76,11 +77,6 @@ function Register() {
         setUser('');
         setPwd('');
         setMatchPwd('');
-    }
-
-    const hashPassword = (p) => {
-        var crypto = require('crypto-js');
-        return crypto.SHA256(p).toString();
     }
     
     const handleSubmit = async (e) => {
