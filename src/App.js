@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Passwords from './components/Passwords/Passwords';
 import Favorites from './views/Favorites/Favorites';
 import Panel from './views/Panel/Panel';
+import AddPassword from './views/AddPassword/AddPassword';
 
 // /creds/ GET token
 // /cred/ PUT token
@@ -21,6 +22,7 @@ function App() {
           <Route path='main' element={<Passwords />} />
           <Route path='favorites' element={<Favorites />} />
           <Route path='panel' element={<Panel />} />
+          <Route path='form' element={<AddPassword />} />
         </Route>
       </Route>
     </Routes>
