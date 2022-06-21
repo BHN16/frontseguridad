@@ -1,14 +1,16 @@
-import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../../context/AuthProvider';
-import { Link } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
+import useAuth from '../../hooks/useAuth';
 import './Login.css';
 
-const LOGIN_URL='/login';
+const LOGIN_URL='http://137.184.83.170:5000/login';
 
 function Login() {
+
+    let navigate = useNavigate();
     
-    const { setAuth } = useContext(AuthContext);
+    const { auth, setAuth } = useAuth();
 
     const userRef = useRef();
     const errRef = useRef();
@@ -16,7 +18,7 @@ function Login() {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState('');
 
 
     useEffect(() => {
@@ -27,6 +29,12 @@ function Login() {
         setErrMsg('');
     }, [user, pwd]);
 
+    useEffect(() => {
+        if (success) {
+            return navigate('/home')
+        }
+    },[success])
+
     const hashPassword = (p) => {
         var crypto = require('crypto-js');
         return crypto.SHA256(p).toString();
@@ -34,20 +42,28 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Para prevenir recaargar la pagina
+        const hashedPassword = await hashPassword(pwd);
+        const sendUser = user;
+        console.log(user, hashPassword);
         try { // nombreEnBD: nombreState
-            //const pp = await hashPassword(pwd);
             const response = await axios.post(LOGIN_URL, 
                 JSON.stringify({
-                    username: user,
-                    password: pwd
-                }), 
+                    email: sendUser,
+                    password: hashedPassword
+                }),
                 {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                    headers: { 'Content-Type': 'application/json' }
                 });
+                console.log(auth);
                 console.log(JSON.stringify(response?.data));
-                setAuth({user, pwd}); // Guardar valores necesarios que nos devuelva el backend
+                const user = response?.data?.username;
+                const msg = response?.data?.msg;
+                setAuth({ user, email:msg }); // Guardar valores necesarios que nos devuelva el backend
+                window.localStorage.setItem('user-session', JSON.stringify(response));
+                console.log(hashedPassword);
+                setSuccess(true);
         } catch (err) {
+            console.log(hashedPassword);
             if (!err?.response) {
                 setErrMsg('No server Response');
             } else if (err.response?.status === 400) {
@@ -62,35 +78,37 @@ function Login() {
     }
 
     return (
-        <div className='login-container'>
-            <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit} className='login-form'>
-                <label htmlFor='username'>Username:</label>
-                <input 
-                    type='text' 
-                    id='username'
-                    className='username-input-container'
-                    ref={userRef}
-                    autoComplete='off'
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    required />
-                <label htmlFor='password'>Password:</label>
-                <input 
-                    type='password' 
-                    id='password'
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required />
-                <button className='login-button'>Login</button>
-            </form>
-            <p>
-                Need an account?<br />
-                <span className='line'>
-                    <a href='#'>Register</a>
-                </span>
-            </p>
+        <div className='container-login-container'>
+            <div className='login-container'>
+                <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit} className='login-form'>
+                    <label htmlFor='username'>Email:</label>
+                    <input 
+                        type='text' 
+                        id='username'
+                        className='username-input-container'
+                        ref={userRef}
+                        autoComplete='off'
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required />
+                    <label htmlFor='password'>Password:</label>
+                    <input 
+                        type='password' 
+                        id='password'
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required />
+                    <button className='login-button'>Login</button>
+                </form>
+                <p>
+                    Need an account?<br />
+                    <span className='line'>
+                        <a> <Link to='/register'>Register</Link></a>
+                    </span>
+                </p>
+            </div>
         </div>
     )
 }
