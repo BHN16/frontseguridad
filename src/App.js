@@ -25,18 +25,6 @@ function App() {
       </Route>
     </Routes>
   );
-
-  /*return (
-    <div className="App">
-      <header>
-        <h3>Página principal</h3>
-      </header>
-      <nav>
-        <Link to='/login'>Login</Link>
-        <Link to='/register'>Register</Link> 
-      </nav>
-    </div>
-  );*/
 }
 
 export default App;
