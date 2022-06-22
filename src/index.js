@@ -18,16 +18,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-
-/*root.render(
-  <React.StrictMode>
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<App />}/>
-      <Route path='login' element={<Login />} />
-      <Route path='register' element={<Register />} />
-    </Routes>
-  </BrowserRouter>
-  </React.StrictMode>
-);*/

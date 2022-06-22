@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import { hashPassword } from '../../utils/Encription';
 import './Login.css';
 
-const LOGIN_URL='http://137.184.83.170:5000/login';
+const LOGIN_URL='http://137.184.83.170/login';
 
 function Login() {
 
@@ -55,7 +55,8 @@ function Login() {
                 const user = response?.data?.username;
                 const msg = response?.data?.msg;
                 setAuth({ user, email:msg }); // Guardar valores necesarios que nos devuelva el backend
-                window.localStorage.setItem('user-session', JSON.stringify(response));
+                const rehashedPassword = await hashPassword(hashedPassword);
+                window.localStorage.setItem('user-session', JSON.stringify({...response.data, password: rehashedPassword}));
                 console.log(hashedPassword);
                 setSuccess(true);
         } catch (err) {

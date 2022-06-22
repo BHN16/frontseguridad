@@ -1,7 +1,7 @@
-var crypto = require('crypto-js');
+var Crypto = require('crypto-js');
 
 function hashPassword (p) {
-  return crypto.SHA256(p).toString();
+  return Crypto.SHA256(p).toString();
 }
 
 function AES_Encrypt(text, key) {

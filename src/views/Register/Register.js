@@ -14,7 +14,7 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/;
 
-const REGISTER_URL = 'http://137.184.83.170:5000/auth';
+const REGISTER_URL = 'http://137.184.83.170/auth';
 
 function Register() {
 
