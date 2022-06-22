@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, Outlet } from 'react-router-dom';
-import { BsFillHouseDoorFill, BsFillStarFill, BsGearFill, BsCardList, BsPower, BsFillQuestionCircleFill, BsFillShieldLockFill } from 'react-icons/bs';
+import { BsFillHouseDoorFill, BsFillStarFill, BsGearFill, BsCardList, BsPower, BsFillQuestionCircleFill, BsFillShieldLockFill, BsFillPlusCircleFill } from 'react-icons/bs';
 import './Dashboard.css'
 
 function Dashboard () {
@@ -38,6 +38,17 @@ function Dashboard () {
                                 <i className="fa fa-laptop fa-2x"><BsCardList /></i>
                                 <span className="nav-text">
                                     Panel de Seguridad
+                                </span>
+                            </Link>
+                        </a>
+                        
+                    </li>
+                    <li className="has-subnav">
+                        <a>
+                            <Link to='form'>
+                                <i className="fa fa-laptop fa-2x"><BsFillPlusCircleFill /></i>
+                                <span className="nav-text">
+                                    Nueva Contraseña
                                 </span>
                             </Link>
                         </a>

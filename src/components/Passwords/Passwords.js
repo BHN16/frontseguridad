@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { AiFillLinkedin, AiFillTwitterSquare, AiFillGithub, AiFillLock } from "react-icons/ai";
+import { Link } from 'react-router-dom';
+import { AiFillLinkedin, AiFillTwitterSquare, AiFillGithub, AiFillLock, AiFillPlusSquare } from "react-icons/ai";
 import './Password.css'
 
 function Passwords () {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div className='body-password'>
             <div className='search'>
@@ -110,6 +115,26 @@ function Passwords () {
                             <p>atom888</p>
                         </div>
                     </div>
+                </div>
+                <div className='card'>
+                    <a>      
+                        <Link to='../form'>
+                            <div className='face face1'>
+                                <div className='content'>
+                                    <div className='icon'>
+                                        <i className='fa fa-github-square' aria-hidden='true'><AiFillPlusSquare /></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='face face2'>
+                                <div className='content'>
+                                    <h3>
+                                        <a target="_blank">Nueva Contraseña</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </Link>                
+                    </a>
                 </div>
             </div>
         </div>
