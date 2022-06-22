@@ -44,153 +44,36 @@ function Passwords () {
             </div>
             <div className='card-list'>
                 {
-                    passwords.length?
+                    passwords.length ?
                         passwords.map((item) => {
-                            <div className='card'>
-                                <div className='face face1'>
-                                    <div className='content'>
-                                        <div className='icon'>
-                                            <i className='fa fa-linkedin-square'><AiFillLinkedin /></i>
+                            console.log(item)
+                            return (
+                                <div className='card'>
+                                    <div className='face face1'>
+                                        <div className='content'>
+                                            <div className='icon'>
+                                                <i className='fa fa-linkedin-square'><AiFillLock /></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='face face2'>
+                                        <div className='content'>
+                                            <h3>
+                                                <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
+                                            </h3>
+                                            <p>{item.username}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className='face face2'>
-                                    <div className='content'>
-                                        <h3>
-                                            <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
-                                        </h3>
-                                        <p>{item.id}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            )
                     }) :
                         <> 
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-linkedin-square'><AiFillLinkedin /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
-                                            </h3>
-                                            <p>_adampinto</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-twitter-square' aria-hidden='true'><AiFillTwitterSquare /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://twitter.com/" target="_blank">Twitter</a>
-                                            </h3>
-                                            <p>AdamDipinto</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-github-square' aria-hidden='true'><AiFillGithub /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://github.com/" target="_blank">Github</a>
-                                            </h3>
-                                            <p>atom888.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-github-square' aria-hidden='true'><AiFillLock /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://github.com/" target="_blank">Github</a>
-                                            </h3>
-                                            <p>atom888</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-github-square' aria-hidden='true'><AiFillLock /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://github.com/" target="_blank">Github</a>
-                                            </h3>
-                                            <p>atom888</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='card'>
-                                    <div className='face face1'>
-                                        <div className='content'>
-                                            <div className='icon'>
-                                                <i className='fa fa-github-square' aria-hidden='true'><AiFillLock /></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='face face2'>
-                                        <div className='content'>
-                                            <h3>
-                                                <a href="https://github.com/" target="_blank">Github</a>
-                                            </h3>
-                                            <p>atom888</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <h1>Loading passwords</h1>
                         </>
                 }
-                <div className='card'>
-                    <a>      
-                        <Link to='../form'>
-                            <div className='face face1'>
-                                <div className='content'>
-                                    <div className='icon'>
-                                        <i className='fa fa-github-square' aria-hidden='true'><AiFillPlusSquare /></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='face face2'>
-                                <div className='content'>
-                                    <h3>
-                                        <a target="_blank">Nueva Contraseña</a>
-                                    </h3>
-                                </div>
-                            </div>
-                        </Link>                
-                    </a>
-                </div>
-            </div>
+                
         </div>
+    </div>
     )
 }
 

@@ -27,6 +27,7 @@ function AddPassword () {
             const response = await axios.post(ADD_PASSWORD_URL,
                 JSON.stringify({
                     web: page,
+                    username: user,
                     bytes: pass
                 }),
                 {
