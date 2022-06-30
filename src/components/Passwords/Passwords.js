@@ -57,9 +57,9 @@ function Passwords () {
                                 <div className='face face2'>
                                     <div className='content'>
                                         <h3>
-                                            <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
+                                            <a href="#" target="_blank">{item.website}</a>
                                         </h3>
-                                        <p>{item.id}</p>
+                                        <p>{item.username}</p>
                                     </div>
                                 </div>
                             </div>
