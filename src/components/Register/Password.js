@@ -1,7 +1,10 @@
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
 
-function Password ( { validPwd, setPwd, setPwdFocus, pwdFocus, pwd }) {
+function Password ( { validPwd, setPwd, setPwdFocus, pwdFocus, pwd, showPassword }) {
+    
+
     return (
         <>
             <label htmlFor='password'>
@@ -14,7 +17,7 @@ function Password ( { validPwd, setPwd, setPwdFocus, pwdFocus, pwd }) {
                 </span>
             </label>
             <input 
-                type='password' 
+                type={showPassword?'text':'password'} 
                 id='password'
                 onChange={(e) => setPwd(e.target.value)}
                 autoComplete='off'

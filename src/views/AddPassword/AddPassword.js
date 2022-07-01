@@ -10,6 +10,8 @@ function AddPassword () {
     const [page, setPage] = useState('');
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [registered, setRegistered] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const key = JSON.parse(window.localStorage.getItem('user-session')).password;
 
@@ -37,9 +39,17 @@ function AddPassword () {
                     }
                 });
             console.log(response);
+            setPage('');
+            setUser('');
+            setPassword('');
+            setRegistered('Contraseña guardada');
         } catch(err){
             console.log(err);
         }
+    }
+
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
     }
 
     return (
@@ -47,7 +57,10 @@ function AddPassword () {
             <div className='containerAdd'>
                 <div className="cointainerHeader">
                     <header>  
-                    <h1>Nueva Contraseña</h1>
+                    <p className={ registered ? 'valid' : 'offscreen'} aria-live='assertive'>
+                        { registered }
+                    </p>
+                    <h1> Nueva Contraseña </h1>
                     </header>
                 </div>
                 <div className="containerb">
@@ -57,8 +70,8 @@ function AddPassword () {
                         <input 
                             type="text" 
                             required 
+                            value={page}
                             ref={userRef}
-                            placeholder="www.example.com" 
                             onChange={(e) => setPage(e.target.value)}
                         />  
                     </p>
@@ -67,18 +80,23 @@ function AddPassword () {
                         <input 
                             type="text" 
                             required 
-                            placeholder="abc123"
+                            value={user}
                             onChange={(e) => setUser(e.target.value)}
                         />
                     </p>
                     <p>
                         Contraseña:
                         <input 
-                            type="password"
+                            type={showPassword?'text':'password'}
+                            value={password}
                             style={{width:'100%'}} 
                             required
                             onChange={(e) => setPassword(e.target.value)}
-                        />  
+                        />
+                        <div style={{ padding: 0, fontSize: '17px'}}>
+                            <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
+                            <input type='checkbox' onChange={togglePassword}/>
+                        </div>
                     </p>
                     <div>
                         <input type="submit" value="Guardar"/>

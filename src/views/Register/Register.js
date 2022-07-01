@@ -42,6 +42,8 @@ function Register() {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const [showPassword, setShowPassword] = useState(false);
+
     useEffect(() => {
         userRef.current.focus();
     }, []);
@@ -92,10 +94,9 @@ function Register() {
                     }),
                     {
                         headers: { 'Content-type': 'application/json' }
-                    });
-            //console.log(JSON.stringify(response?.data));
+                    }
+            );
             console.log(hashedPassword);
-            //console.log('asdf');
             setSuccess(true);
             clearFields();
         } catch (err) {
@@ -134,13 +135,16 @@ function Register() {
                         setPwd={ setPwd } 
                         setPwdFocus={ setPwdFocus } 
                         pwdFocus={ pwdFocus } 
-                        pwd={ pwd } />
+                        pwd={ pwd } 
+                        showPassword={ showPassword } />
                     <MatchPwd
                         validMatch={ validMatch}
                         matchPwd={ matchPwd }
                         setMatchPwd={ setMatchPwd }
                         setMatchFocus={ setMatchFocus }
-                        matchFocus={ matchFocus } />
+                        matchFocus={ matchFocus }
+                        showPassword={ showPassword }
+                        setShowPassword={ setShowPassword } />
                     <button disabled={ !validName || !validPwd || !validMatch || !validEmail ? true : false} className='register-button'>
                         Sign up
                     </button>

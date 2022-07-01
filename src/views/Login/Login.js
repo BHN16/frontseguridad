@@ -21,6 +21,7 @@ function Login() {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState('');
 
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -74,6 +75,10 @@ function Login() {
         }
     }
 
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
+    }
+
     return (
         <div className='container-login-container'>
             <div className='login-container'>
@@ -92,11 +97,15 @@ function Login() {
                         required />
                     <label htmlFor='password'>Password:</label>
                     <input 
-                        type='password' 
+                        type={showPassword?'text':'password'}
                         id='password'
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         required />
+                    <div style={{ padding: 0, fontSize: '17px'}}>
+                        <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
+                        <input type='checkbox' onChange={togglePassword}/>
+                    </div>
                     <button className='login-button'>Login</button>
                 </form>
                 <p>
