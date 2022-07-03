@@ -4,7 +4,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import axios from '../../api/axios';
 import './EditPassword.css'
 
-function EditPassword({id, page, user, password}) {
+function EditPassword() {
 
     const [page, setPage] = useState('');
     const [user, setUser] = useState('');
