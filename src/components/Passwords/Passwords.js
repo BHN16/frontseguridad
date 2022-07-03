@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
-import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit } from "react-icons/ai";
+import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit, AiOutlineClose} from "react-icons/ai";
 import axios from '../../api/axios';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
@@ -14,6 +14,7 @@ function Passwords () {
     const [show, setShow] = useState(false);
     const [passwords, setPasswords] = useState([]);
     const [filter, setFilter] = useState('');
+    const [bytes, setBytes] = useState();
     
     useEffect(() => {
         if (firstRender.current) {
@@ -67,6 +68,14 @@ function Passwords () {
         console.log(filter);
     }
 
+    const handlePopUp = (pswd) => {
+        console.log(pswd);
+    }
+
+    const prueba = () => {
+        console.log("hola");
+    }
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -80,6 +89,7 @@ function Passwords () {
                     passwords.length
                         ? ( filter === ''
                             ? passwords.map((item) => {
+                                console.log(item)
                                 return (
                                     <div className='card' key={item.id}>
                                         <div className='face face1'>
@@ -96,7 +106,7 @@ function Passwords () {
                                                 </h3>
                                                 <p>{item.username}</p>
                                                 <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiFillCloseCircle /></button></i>
-                                                <Popup trigger={<button className="button"> Password </button>} modal>
+                                                <Popup trigger={ <button className="button"> Password </button> } modal>
                                                     <div className='modal-password'>
                                                         <form>
                                                             <div>
@@ -104,15 +114,14 @@ function Passwords () {
                                                                 <input type="password"/>
                                                             </div>
                                                             <div>
-                                                                <h4>Pagina</h4>
-                                                                <h4>Usuario/Login</h4>
-                                                                <h4>Contraseña</h4>
+                                                                <h4>Pagina {item.website}</h4>
+                                                                <h4>Usuario/Login {item.username}</h4>
+                                                                <h4>Contraseña {bytes}</h4>
                                                             </div>
-                                                            
                                                         </form>
                                                     </div>
                                                 </Popup>
-                                                <Modal/>
+                                                <Modal password={passwords.find( element => element.id === item.id )} />
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +164,10 @@ function Passwords () {
     )
 }
 
-function Modal() {
+function Modal({ password = {} }) {
+
+    const [pswd, setPswd] = useState(password)
+
     return (
     <Popup trigger={<button className="button"> Open Modal </button>} modal>
         <div className='modal'>
