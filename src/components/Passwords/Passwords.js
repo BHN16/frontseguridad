@@ -21,20 +21,27 @@ function Passwords () {
         getPasswords();
     }, []);
 
+    useEffect(() => {
+        getPasswords();
+    }, [show]);
+
     const deletePassword = async(pswd) => {
         try {
             const response = await axios.delete(DELETE_PASSWORD_URL,
-                JSON.stringify({
-                    id: pswd
-                }),
                 {
                     headers: {
+                        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token,
                         'Content-type': 'application/json',
-                        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token
+                    },
+                    data: {
+                        id: pswd
                     }
                 });
-        } catch(err) {
-            console.log('error');
+            setShow(!show);
+        } catch (err) {
+            console.log('error', pswd);
+            console.log(err);
+            console.log(JSON.parse(window.localStorage.getItem('user-session')).token);
         }
     }
 
@@ -72,7 +79,7 @@ function Passwords () {
                         ? ( filter === ''
                             ? passwords.map((item) => {
                                 return (
-                                    <div className='card'>
+                                    <div className='card' key={item.id}>
                                         <div className='face face1'>
                                             <div className='content'>
                                                 <div className='icon'>
