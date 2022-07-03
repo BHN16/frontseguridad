@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit } from "react-icons/ai";
 import axios from '../../api/axios';
+import ViewPassword from '../../views/ViewPassword/ViewPassword';
+import EditPassword from '../../views/EditPassword/EditPassword';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
 const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
@@ -96,23 +98,8 @@ function Passwords () {
                                                 </h3>
                                                 <p>{item.username}</p>
                                                 <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiFillCloseCircle /></button></i>
-                                                <Popup trigger={<button className="button"> Password </button>} modal>
-                                                    <div className='modal-password'>
-                                                        <form>
-                                                            <div>
-                                                                <h3>Master Password: </h3>
-                                                                <input type="password"/>
-                                                            </div>
-                                                            <div>
-                                                                <h4>Pagina</h4>
-                                                                <h4>Usuario/Login</h4>
-                                                                <h4>Contraseña</h4>
-                                                            </div>
-                                                            
-                                                        </form>
-                                                    </div>
-                                                </Popup>
-                                                <Modal/>
+                                                <ViewPassword/>
+                                                <EditPassword/>
                                             </div>
                                         </div>
                                     </div>
@@ -151,56 +138,6 @@ function Passwords () {
                 
         </div>
     </div>
-    )
-}
-
-function Modal() {
-    return (
-    <Popup trigger={<button className="button"> Open Modal </button>} modal>
-        <div className='modal'>
-            <div className=''>
-                <div className="">
-                    <header>
-                    <h1> Nueva Contraseña </h1>
-                    </header>
-                </div>
-                <div className="">
-                <form>
-                    <p>
-                        Pagina:
-                        <input 
-                            type="text" 
-                            required 
-                        />  
-                    </p>
-                    <p>
-                        Usuario o Email:
-                        <input 
-                            type="text" 
-                            required 
-                        />
-                    </p>
-                    <p>
-                        Contraseña:
-                        <input 
-                            style={{width:'100%'}} 
-                            required
-                        />
-                        <div style={{ padding: 0, fontSize: '17px'}}> 
-                            <input type='checkbox'/>
-                        </div>
-                    </p>
-                    <div>
-                        <input type="submit" value="Guardar"/>
-                    </div>
-                    <div>
-                        <input type="reset" value="Cancelar"/>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        </Popup>
     )
 }
 
