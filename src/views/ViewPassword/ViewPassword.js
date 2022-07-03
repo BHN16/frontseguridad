@@ -10,6 +10,11 @@ function ViewPassword({ website, username, bytes }) {
 
     const [decrypt, setDecrypt] = useState(bytes);
     const [password, setPassword] = useState('');
+    const [open, setOpen] = useState(false);
+    const closeModal = () => {
+        setPassword('');
+        setOpen(false);
+    }
 
     const handleDecrypt = (e) => {
         e.preventDefault();
@@ -23,34 +28,31 @@ function ViewPassword({ website, username, bytes }) {
     }, [password])
 
     return(
-        <Popup trigger={
-            <i  className='view-buttom'><button className="button"><AiFillLock /></button></i>
-            } modal nested>
-            {
-                close  => (
-                    <div className='modal-password'>
-                        <form onSubmit={handleDecrypt}>
-                            <div>
-                                <h3>Master Password: </h3>
-                                <input 
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    />
-                            </div>
-                            <div>
-                                <input type="submit" value="Guardar"/>
-                            </div>
-                        </form>
+        <>
+            <i  className='view-buttom'><button className="button" onClick={() => setOpen(o => !o)}><AiFillLock /></button></i>
+            <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                <div className='modal-password'>
+                    <form onSubmit={handleDecrypt}>
                         <div>
-                            <h4>Pagina: { website }</h4>
-                            <h4>Usuario/Login: { username } </h4>
-                            <h4>Contraseña: { decrypt } </h4>
+                            <h3>Master Password: </h3>
+                            <input 
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                />
                         </div>
+                        <div>
+                            <input type="submit" value="Guardar"/>
+                        </div>
+                    </form>
+                    <div>
+                        <h4>Pagina: { website }</h4>
+                        <h4>Usuario/Login: { username } </h4>
+                        <h4>Contraseña: { decrypt } </h4>
                     </div>
-                )
-            }
-        </Popup>
+                </div>
+            </Popup>
+        </>
     )
 }
 
