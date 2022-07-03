@@ -119,6 +119,7 @@ function Passwords () {
                                                         <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                     </h3>
                                                     <p>{item.username}</p>
+                                                    <i className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiOutlineClose /></button></i>
                                                 </div>
                                             </div>
                                         </div>
