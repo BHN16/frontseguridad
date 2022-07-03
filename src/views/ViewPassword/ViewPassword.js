@@ -32,23 +32,42 @@ function ViewPassword({ website, username, bytes }) {
             <i  className='view-buttom'><button className="button" onClick={() => setOpen(o => !o)}><AiFillLock /></button></i>
             <Popup open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className='modal-password'>
-                    <form onSubmit={handleDecrypt}>
-                        <div>
-                            <h3>Master Password: </h3>
-                            <input 
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                />
+                    <div className='conteinerView'>
+                        <div className='cointainerHeader'>
+                            <header>
+                            <h1> Content Password </h1>
+                            </header>
                         </div>
-                        <div>
-                            <input type="submit" value="Guardar"/>
+                        <div className='containerPassBody'>
+                            <div className="containerForm">
+                                <form onSubmit={handleDecrypt}>
+                                    <div>
+                                        <p>
+                                        Master Password: 
+                                        <input 
+                                            type="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className='containerContent'>
+                                <div>
+                                    <h4 className='col'>Page:</h4><p className='col'> { website } </p>
+                                </div>
+                                <div>
+                                    <h4 className='col'>User/Email:</h4><p className='col'> { username } </p> 
+                                </div>
+                                <div>
+                                    <h4 className='col'>Password:</h4><p className='col'> { decrypt } </p>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                    <div>
-                        <h4>Pagina: { website }</h4>
-                        <h4>Usuario/Login: { username } </h4>
-                        <h4>Contraseña: { decrypt } </h4>
                     </div>
                 </div>
             </Popup>
