@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
-import { AiFillLinkedin, AiFillTwitterSquare, AiFillGithub, AiFillLock, AiFillPlusSquare } from "react-icons/ai";
+import { AiFillLock, AiOutlineClose } from "react-icons/ai";
 import axios from '../../api/axios';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
@@ -68,6 +68,7 @@ function Passwords () {
                                                     <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                 </h3>
                                                 <p>{item.username}</p>
+                                                <i  className='cancel-buttom'><button><AiOutlineClose /></button></i>
                                             </div>
                                         </div>
                                     </div>
