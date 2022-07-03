@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AiFillLinkedin, AiFillTwitterSquare, AiFillGithub, AiFillLock, AiFillPlusSquare } from "react-icons/ai";
 import axios from '../../api/axios';
 import './Password.css'
-
+// Response 401, redirigir por expiracion del token
 const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
 
 function Passwords () {
@@ -18,7 +18,7 @@ function Passwords () {
             return;
         }
         getPasswords();
-    }, [])
+    }, []);
 
     const getPasswords = async (e) => {
         try {
@@ -75,7 +75,6 @@ function Passwords () {
                             })
                             : passwords
                                 .filter((item) => {
-                                    console.log("hola:", filter)
                                     return (item.website.toLowerCase().startsWith(filter.toLowerCase()))
                                 })
                                 .map((item) => {

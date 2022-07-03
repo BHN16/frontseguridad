@@ -22,16 +22,6 @@ function Dashboard () {
                             </Link>
                         </a>
                     </li>
-                    <li>
-                        <a>
-                            <Link to='favorites'>
-                                <i className="fa fa-home fa-2x"><BsFillStarFill /></i>
-                                <span className="nav-text">
-                                    Favoritos
-                                </span>
-                            </Link>
-                        </a>
-                    </li>
                     <li className="has-subnav">
                         <a>
                             <Link to='panel'>
@@ -40,8 +30,7 @@ function Dashboard () {
                                     Panel de Seguridad
                                 </span>
                             </Link>
-                        </a>
-                        
+                        </a>  
                     </li>
                     <li className="has-subnav">
                         <a>
