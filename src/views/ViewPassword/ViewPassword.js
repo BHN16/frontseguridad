@@ -10,6 +10,7 @@ function ViewPassword({ website, username, bytes }) {
 
     const [decrypt, setDecrypt] = useState(bytes);
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [open, setOpen] = useState(false);
     const closeModal = () => {
         setPassword('');
@@ -21,10 +22,12 @@ function ViewPassword({ website, username, bytes }) {
         setDecrypt(AES_Decrypt(decrypt, hashPassword(hashPassword(password))));
     }
 
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
+    }
+
     useEffect(() => {
-        if (password === '') {
-            setDecrypt(INITIAL_STATE);
-        }
+        setDecrypt(INITIAL_STATE)
     }, [password])
 
     return(
@@ -32,23 +35,46 @@ function ViewPassword({ website, username, bytes }) {
             <i  className='view-buttom'><button className="button" onClick={() => setOpen(o => !o)}><AiFillLock /></button></i>
             <Popup open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className='modal-password'>
-                    <form onSubmit={handleDecrypt}>
-                        <div>
-                            <h3>Master Password: </h3>
-                            <input 
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                />
+                    <div className='conteinerView'>
+                        <div className='cointainerHeader'>
+                            <header>
+                            <h1> Content Password </h1>
+                            </header>
                         </div>
-                        <div>
-                            <input type="submit" value="Guardar"/>
+                        <div className='containerPassBody'>
+                            <div className="containerForm">
+                                <form onSubmit={handleDecrypt}>
+                                    <div>
+                                        <p>
+                                        Master Password: 
+                                        <input 
+                                            type={showPassword?'text':'password'}
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                        <div style={{ padding: 0, fontSize: '17px'}}> 
+                                            <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
+                                            <input type='checkbox'  onChange={togglePassword}/>
+                                        </div>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className='containerContent'>
+                                <div>
+                                    <h4 className='col'>Page:</h4><p className='col'> { website } </p>
+                                </div>
+                                <div>
+                                    <h4 className='col'>User/Email:</h4><p className='col'> { username } </p> 
+                                </div>
+                                <div>
+                                    <h4 className='col'>Password:</h4><p className='col'> { decrypt } </p>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                    <div>
-                        <h4>Pagina: { website }</h4>
-                        <h4>Usuario/Login: { username } </h4>
-                        <h4>Contraseña: { decrypt } </h4>
                     </div>
                 </div>
             </Popup>

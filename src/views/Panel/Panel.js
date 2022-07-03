@@ -1,94 +1,195 @@
-import React from 'react'
-import { Chart } from 'react-charts'
+import React, { useState, useEffect, useRef } from 'react'
+import { PieChart, Pie, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import axios from '../../api/axios';
+import { AES_Decrypt, hashPassword } from '../../utils/Encription';
 import './Panel.css'
+
+const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
+const PWD_1 = /^(?=.*[a-z])/;
+const PWD_2 = /^(?=.*[A-Z])/;
+const PWD_3 = /^(?=.*[0-9])/;
+const PWD_4 = /^(?=.*[!@#$%])/;
+const PWD_5 = /^.{8,24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function Panel () {
 
   return (
     <div className='body-panel'>
-      <ChartExample/>
       <PasswordSecurities/>
+      <ChartExample/>
     </div>
   );
 }
 
 function ChartExample () {
-  const data = React.useMemo(
-    () => [
-      {
-        label: 'Series 1',
-        data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-      },
-      {
-        label: 'Series 2',
-        data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-      }
-    ],
-    []
-  )
-
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' }
-    ],
-    []
-  )
   return (
     <div className='conteiner-card-chart'>
       <div className='card-chart'>
-        <h2>Data 1</h2>
-        <div className='conteiner-chart'>
-          <div className='dimension-chart'>
-            <Chart data={data} axes={axes} />
-          </div>
+        <h2>How To Create Secure Passwords</h2>
+        <div className='infoPassword'>
+          <h4>The best practices for creating secure passwords are:</h4>
+          <ul>
+            <li>A password should be 16 characters or more; our password-related research has found that 45 percent of Americans use passwords of eight characters or less, which are not as secure as longer passwords.</li>
+            <li>A password should include a combination of letters, numbers, and characters.</li>
+            <li>A password shouldn't be shared with any other account.</li>
+            <li>A password shouldn't include any of the user's personal information like their address or phone number. It's also best not to include any information that can be accessed on social media like kids' or pets' names.</li>
+            <li>A password shouldn't contain any consecutive letters or numbers.</li>
+            <li>A password shouldn't be the word “password” or the same letter or number repeated.</li>
+          </ul>
         </div>
       </div>
     </div>
   );
 }
+
+const key = JSON.parse(window.localStorage.getItem('user-session')).password;
+const COLORS = ['#1b1b', '#D82148'];
 
 function PasswordSecurities () {
-  const data = React.useMemo(
-    () => [
-      {
-        label: 'Series 1',
-        data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
-      },
-      {
-        label: 'Series 2',
-        data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-      }
-    ],
-    []
-  )
+  const firstRender = useRef(true);
+  const [myData, setMyData] = useState([
+    { name: "Strong Passwords", value: 0 },
+    { name: "Weak Passwords", value: 0 },
+  ]);
 
-  const series = React.useMemo(
-    () => ({
-      type: 'bar',
-    }),
-    []
-  )
+  const [myDataChart, setMyDataChart] = useState([
+    {
+      name: '1',
+      strength: 0,
+    },
+    {
+      name: '2',
+      strength: 0,
+    },
+    {
+      name: '3',
+      strength: 0,
+    },
+    {
+      name: '4',
+      strength: 0,
+    },
+    {
+      name: '5',
+      strength: 0,
+    },
+  ])
 
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'ordinal', position: 'left' },
-      { position: 'bottom', type: 'linear' }
-    ],
-    []
-  )
+  useEffect(() => {
+    if (firstRender.current) {
+        firstRender.current = false;
+        return;
+    }
+    getPasswords();
+  }, []);
+
+  const getPasswords = async (e) => {
+    try {
+        const response = await axios.get(GET_PASSWORD_URL,
+            {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token
+                }
+            });  
+            getData(response.data);
+    } catch(err) {
+        console.log('error');
+    }
+  }
+
+  const getData = async (e) => {
+    let strong_pwd = 0;
+    let weak_pwd = 0;
+    let verifies = [0,0,0,0,0];
+    e.map((item) => {
+      let pwd = AES_Decrypt(item.bytes, key);
+      const result = PWD_REGEX.test(pwd);
+      const verify1 = PWD_1.test(pwd);
+      const verify2 = PWD_2.test(pwd);
+      const verify3 = PWD_3.test(pwd);
+      const verify4 = PWD_4.test(pwd);
+      const verify5 = PWD_5.test(pwd);
+      if(result) strong_pwd++; else weak_pwd++;
+      verifies[(verify1+verify2+verify3+verify4+verify5)-1]++;
+    })
+    setMyData([
+      { name: "Strong Passwords", value: strong_pwd },
+      { name: "Weak Passwords", value: weak_pwd },
+    ])
+    console.table(verifies);
+
+    setMyDataChart([
+    {
+      name: '1',
+      strength: verifies[0],
+    },
+    {
+      name: '2',
+      strength: verifies[1],
+    },
+    {
+      name: '3',
+      strength: verifies[2],
+    },
+    {
+      name: '4',
+      strength: verifies[3],
+    },
+    {
+      name: '5',
+      strength: verifies[4],
+    },
+  ])
+  } 
+
   return (
     <div className='conteiner-card-chart'>
       <div className='card-chart'>
-        <h2>Data 2</h2>
+        <h2> Strong Passwords & Password Strength</h2>
         <div className='conteiner-chart'>
           <div className='dimension-chart'>
-            <Chart data={data} series={series} axes={axes} tooltip />
+          <PieChart width={340} height={300}>
+            <Pie
+              dataKey="value"
+              isAnimationActive={true}
+              data={myData}
+              outerRadius={100}
+              label
+            >
+              {myData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+              </Pie>
+            <Tooltip />
+          </PieChart>
+          <ResponsiveContainer width={340} height={300}>
+            <BarChart
+              width={500}
+              height={300}
+              data={myDataChart}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="strength" fill="#1b1b" />
+            </BarChart>
+          </ResponsiveContainer>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 
 export default Panel;

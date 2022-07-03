@@ -30,7 +30,7 @@ function Passwords () {
         getPasswords();
     }, [show]);
 
-    const deletePassword = async(pswd) => {
+    const deletePassword = async (pswd) => {
         try {
             const response = await axios.delete(DELETE_PASSWORD_URL,
                 {
@@ -109,7 +109,7 @@ function Passwords () {
                                                 <p>{item.username}</p>
                                                 <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiFillCloseCircle /></button></i>
                                                 <ViewPassword website={item.website} username={item.username} bytes={item.bytes}/>
-                                                <EditPassword/>
+                                                <EditPassword pid={item.id} website={item.website} username={item.username} bytes={item.bytes}/>
                                             </div>
                                         </div>
                                     </div>
