@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import { AiTwotoneEdit } from "react-icons/ai";
+import axios from '../../api/axios';
 import './EditPassword.css'
 
-function EditPassword() {
+function EditPassword({id, page, user, password}) {
+
+    const [page, setPage] = useState('');
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleChange = async (e) => {
+        e.preventDefault();
+        try {
+
+        } catch (err) {
+
+        }
+    }
+
     return (
     <Popup trigger={
             <i  className='edit-buttom'><button className="button"><AiTwotoneEdit /></button></i>
@@ -16,42 +31,37 @@ function EditPassword() {
                     </header>
                 </div>
                 <div className="">
-                <form>
-                    <p>
-                        Pagina:
-                        <input 
-                            type="text" 
-                            required 
-                        />  
-                    </p>
-                    <p>
-                        Usuario o Email:
-                        <input 
-                            type="text" 
-                            required 
-                        />
-                    </p>
-                    <p>
-                        Contraseña:
-                        <input 
-                            style={{width:'100%'}} 
-                            required
-                        />
-                        <div style={{ padding: 0, fontSize: '17px'}}> 
-                            <input type='checkbox'/>
+                    <form>
+                        <p>
+                            Usuario o Email:
+                            <input 
+                                type="text" 
+                                value={user}
+                                required 
+                            />
+                        </p>
+                        <p>
+                            Contraseña:
+                            <input 
+                                style={{width:'100%'}}
+                                value={password} 
+                                required
+                            />
+                            <div style={{ padding: 0, fontSize: '17px'}}> 
+                                <input type='checkbox'/>
+                            </div>
+                        </p>
+                        <div>
+                            <input type="submit" value="Guardar"/>
                         </div>
-                    </p>
-                    <div>
-                        <input type="submit" value="Guardar"/>
-                    </div>
-                    <div>
-                        <input type="reset" value="Cancelar"/>
-                    </div>
+                        <div>
+                            <input type="reset" value="Cancelar"/>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        </Popup>
+    </Popup>
     )
 }
 
