@@ -5,6 +5,7 @@ import axios from '../../api/axios';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
 const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
+const DELETE_PASSWORD_URL = 'http://137.184.83.170/cred/';
 
 function Passwords () {
     const firstRender = useRef(true);
@@ -19,6 +20,23 @@ function Passwords () {
         }
         getPasswords();
     }, []);
+
+    const deletePassword = async(pswd) => {
+        try {
+            const response = await axios.delete(DELETE_PASSWORD_URL,
+                JSON.stringify({
+                    id: pswd
+                }),
+                {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token
+                    }
+                });
+        } catch(err) {
+            console.log('error');
+        }
+    }
 
     const getPasswords = async (e) => {
         try {
@@ -68,7 +86,7 @@ function Passwords () {
                                                     <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                 </h3>
                                                 <p>{item.username}</p>
-                                                <i  className='cancel-buttom'><button><AiOutlineClose /></button></i>
+                                                <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiOutlineClose /></button></i>
                                             </div>
                                         </div>
                                     </div>
