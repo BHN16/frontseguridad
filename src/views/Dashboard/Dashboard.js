@@ -17,7 +17,7 @@ function Dashboard () {
                             <Link to='main'>
                                 <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
                                 <span className="nav-text">
-                                    Todos los elementos
+                                    Dashboard
                                 </span>
                             </Link>
                         </a>
@@ -27,7 +27,7 @@ function Dashboard () {
                             <Link to='panel'>
                                 <i className="fa fa-laptop fa-2x"><BsCardList /></i>
                                 <span className="nav-text">
-                                    Panel de Seguridad
+                                    Security Dashboard
                                 </span>
                             </Link>
                         </a>  
@@ -37,7 +37,7 @@ function Dashboard () {
                             <Link to='form'>
                                 <i className="fa fa-laptop fa-2x"><BsFillPlusCircleFill /></i>
                                 <span className="nav-text">
-                                    Nueva Contraseña
+                                    New Password
                                 </span>
                             </Link>
                         </a>
@@ -48,18 +48,9 @@ function Dashboard () {
                 <ul className="logout">
                     <li className="has-subnav">
                         <a href="#">
-                        <i className="fa fa-list fa-2x"><BsGearFill /></i>
-                            <span className="nav-text">
-                                Configuración
-                            </span>
-                        </a>
-                        
-                    </li>
-                    <li className="has-subnav">
-                        <a href="#">
                         <i className="fa fa-list fa-2x"><BsFillQuestionCircleFill /></i>
                             <span className="nav-text">
-                                Ayuda
+                                Help
                             </span>
                         </a>
                         
@@ -72,7 +63,7 @@ function Dashboard () {
 
                             <i className="fa fa-power-off fa-2x"><BsPower /></i>
                             <span className="nav-text">
-                                Cerrar Sesión
+                                Logout
                             </span>
                         </a>
                     </li>  
