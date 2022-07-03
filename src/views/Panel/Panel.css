@@ -1,0 +1,35 @@
+.body-panel {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0.5em;
+}
+
+.conteiner-card-chart {
+    padding: 1em;
+}
+
+
+.card-chart {
+    width: 400px;
+    background-color: aliceblue;
+    color: black;
+    text-align: center;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-chart h2 {
+    padding-top: 0.5em;
+}
+
+.conteiner-chart {
+    width: 400px;
+    height: 300px;
+}
+
+.dimension-chart {
+    width: 84%;
+    height: 90%;
+    padding: 0% 8%;
+}
