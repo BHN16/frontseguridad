@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { PieChart, Pie, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { AES_Decrypt, hashPassword } from '../../utils/Encription';
 import './Panel.css'
@@ -11,12 +12,15 @@ const PWD_3 = /^(?=.*[0-9])/;
 const PWD_4 = /^(?=.*[!@#$%])/;
 const PWD_5 = /^.{8,24}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const COLORS = ['#1b1b', '#D82148'];
 
 function Panel () {
 
+  let navigate = useNavigate();
+
   return (
     <div className='body-panel'>
-      <PasswordSecurities/>
+      <PasswordSecurities navigate={navigate}/>
       <ChartExample/>
     </div>
   );
@@ -43,9 +47,7 @@ function ChartExample () {
   );
 }
 
-const COLORS = ['#1b1b', '#D82148'];
-
-function PasswordSecurities () {
+function PasswordSecurities ({ navigate }) {
   const key = JSON.parse(window.localStorage.getItem('user-session')).password;
   const firstRender = useRef(true);
   const [myData, setMyData] = useState([
@@ -95,7 +97,16 @@ function PasswordSecurities () {
             });  
             getData(response.data);
     } catch(err) {
-        console.log('error');
+      if (!err?.response) {
+
+      } else if (err.response?.status === 400) {
+          console.log("bad request params");
+      } else if (err.response?.status === 401) {
+          window.localStorage.removeItem('user-session');
+          return navigate('/');
+      } else {
+
+      }
     }
   }
 
@@ -118,7 +129,6 @@ function PasswordSecurities () {
       { name: "Strong Passwords", value: strong_pwd },
       { name: "Weak Passwords", value: weak_pwd },
     ])
-    console.table(verifies);
 
     setMyDataChart([
     {

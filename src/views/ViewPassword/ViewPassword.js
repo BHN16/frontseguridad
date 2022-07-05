@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Popup from 'reactjs-popup';
 import { AiFillLock } from "react-icons/ai";
 import { AES_Decrypt, hashPassword } from '../../utils/Encription';
@@ -12,6 +12,7 @@ function ViewPassword({ website, username, bytes }) {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [open, setOpen] = useState(false);
+
     const closeModal = () => {
         setPassword('');
         setOpen(false);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import { AES_Encrypt } from '../../utils/Encription';
 import './AddPassword.css'
@@ -6,6 +7,8 @@ import './AddPassword.css'
 const ADD_PASSWORD_URL = 'http://137.184.83.170/cred/';
 
 function AddPassword () {
+
+    let navigate = useNavigate();
 
     const [page, setPage] = useState('');
     const [user, setUser] = useState('');
@@ -44,7 +47,16 @@ function AddPassword () {
             setPassword('');
             setRegistered('Contraseña guardada');
         } catch(err){
-            console.log(err);
+            if (!err?.response) {
+
+            } else if (err.response?.status === 400) {
+                console.log("bad request params");
+            } else if (err.response?.status === 401) {
+                window.localStorage.removeItem('user-session');
+                return navigate('/');
+            } else {
+
+            }
         }
     }
 
@@ -52,21 +64,28 @@ function AddPassword () {
         setShowPassword(!showPassword);
     }
 
+    const cleanInputs = () => {
+        setPage('');
+        setUser('');
+        setPassword('');
+        userRef.current.focus();
+    }
+
     return (
         <div className='conteinerAddConteiner'>
             <div className='containerAdd'>
                 <div className="cointainerHeader">
                     <header>  
-                    <p className={ registered ? 'valid' : 'offscreen'} aria-live='assertive'>
+                    <p className={ registered ? 'valid-add' : 'offscreen'} aria-live='assertive'>
                         { registered }
                     </p>
-                    <h1> Nueva Contraseña </h1>
+                    <h1> New password </h1>
                     </header>
                 </div>
                 <div className="containerb">
                 <form onSubmit={handleSubmit}>
                     <p>
-                        Pagina:
+                        Web page:
                         <input 
                             type="text" 
                             required 
@@ -76,7 +95,7 @@ function AddPassword () {
                         />  
                     </p>
                     <p>
-                        Usuario o Email:
+                        User or Email:
                         <input 
                             type="text" 
                             required 
@@ -85,7 +104,7 @@ function AddPassword () {
                         />
                     </p>
                     <p>
-                        Contraseña:
+                        Password:
                         <input 
                             type={showPassword?'text':'password'}
                             value={password}
@@ -99,10 +118,10 @@ function AddPassword () {
                         </div>
                     </p>
                     <div>
-                        <input type="submit" value="Guardar"/>
+                        <input type="submit" value="Save"/>
                     </div>
                     <div>
-                        <input type="reset" value="Cancelar"/>
+                        <input type="reset" value="Cancel" onClick={cleanInputs}/>
                     </div>
                     </form>
                 </div>

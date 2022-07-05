@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { AiTwotoneEdit } from "react-icons/ai";
 import axios from '../../api/axios';
@@ -8,6 +9,8 @@ import './EditPassword.css'
 const EDIT_PASSWORD_URL = 'http://137.184.83.170/cred/';
 
 function EditPassword({ pid, website, username, bytes, passwords, setPasswords }) {
+
+    let navigate = useNavigate();
 
     const [masterPassword, setMasterPassword] = useState('');
 
@@ -72,10 +75,12 @@ function EditPassword({ pid, website, username, bytes, passwords, setPasswords }
             console.log(response);
         } catch (err) {
             if (!err?.response) {
+                console.log("error");
             } else if (err.response?.status === 401) {
-                // redireccion
+                window.localStorage.removeItem('user-session');
+                return navigate('/');
             } else {
-
+                console.log("error");
             }
         }
     }

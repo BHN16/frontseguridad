@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit, AiOutlineClose} from "react-icons/ai";
 import axios from '../../api/axios';
@@ -12,6 +12,9 @@ const DELETE_PASSWORD_URL = 'http://137.184.83.170/cred/';
 
 
 function Passwords () {
+
+    let navigate = useNavigate();
+
     const firstRender = useRef(true);
     const [show, setShow] = useState(false);
     const [passwords, setPasswords] = useState([]);
@@ -45,10 +48,12 @@ function Passwords () {
             setShow(!show);
         } catch (err) {
             if (!err?.response) {
+                console.log("error");
             } else if (err.response?.status === 401) {
-                // redireccion
+                window.localStorage.removeItem('user-session');
+                return navigate('/');
             } else {
-
+                console.log("error");
             }
         }
     }
@@ -64,7 +69,14 @@ function Passwords () {
                 });  
             setPasswords(response.data);
         } catch(err) {
-            console.log('error');
+            if (!err?.response) {
+                console.log("error");
+            } else if (err.response?.status === 401) {
+                window.localStorage.removeItem('user-session');
+                return navigate('/');
+            } else {
+                console.log("error");
+            }
         }
     }
 
