@@ -44,9 +44,12 @@ function Passwords () {
                 });
             setShow(!show);
         } catch (err) {
-            console.log('error', pswd);
-            console.log(err);
-            console.log(JSON.parse(window.localStorage.getItem('user-session')).token);
+            if (!err?.response) {
+            } else if (err.response?.status === 401) {
+                // redireccion
+            } else {
+
+            }
         }
     }
 
@@ -109,7 +112,7 @@ function Passwords () {
                                                 <p>{item.username}</p>
                                                 <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiFillCloseCircle /></button></i>
                                                 <ViewPassword website={item.website} username={item.username} bytes={item.bytes}/>
-                                                <EditPassword pid={item.id} website={item.website} username={item.username} bytes={item.bytes}/>
+                                                <EditPassword pid={item.id} website={item.website} username={item.username} bytes={item.bytes} passwords={passwords} setPasswords={setPasswords}/>
                                             </div>
                                         </div>
                                     </div>

@@ -7,7 +7,7 @@ import './EditPassword.css'
 
 const EDIT_PASSWORD_URL = 'http://137.184.83.170/cred/';
 
-function EditPassword({ pid, website, username, bytes }) {
+function EditPassword({ pid, website, username, bytes, passwords, setPasswords }) {
 
     const [masterPassword, setMasterPassword] = useState('');
 
@@ -21,6 +21,18 @@ function EditPassword({ pid, website, username, bytes }) {
     const closeModal = () => setOpen(false);
 
     const userRef = useRef();
+
+    const updatePasswords = (id, pass) => {
+        let items = passwords.map((item) => {
+            if (item.id === id) {
+                item.website = page;
+                item.username = user;
+                item.bytes = pass;
+            }
+            return item;
+        })
+        setPasswords(items);
+    }
     
     const togglePassword = () => {
         setShowPassword(!showPassword);
@@ -56,9 +68,15 @@ function EditPassword({ pid, website, username, bytes }) {
                         'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token
                     }
                 });
+            await updatePasswords(pid, pass);
             console.log(response);
         } catch (err) {
-            console.log(err);
+            if (!err?.response) {
+            } else if (err.response?.status === 401) {
+                // redireccion
+            } else {
+
+            }
         }
     }
 
@@ -111,7 +129,7 @@ function EditPassword({ pid, website, username, bytes }) {
                                         </div>
                                     </p>
                                     <div>
-                                        <input type="submit" value="Saved"/>
+                                        <input type="submit" value="Save"/>
                                     </div>
                                     <div>
                                         <input type="reset" value="Cancel"/>

@@ -102,8 +102,8 @@ function Register() {
         } catch (err) {
             if(!err?.response) {
                 setErrMsg('No server respone');
-            } else if(err.response?.status === 409) {
-                setErrMsg('Username taken');
+            } else if(err.response?.status === 400) {
+                setErrMsg('Bad signup request params');
             } else {
                 setErrMsg('Registration failed');
                 console.log(err.response);

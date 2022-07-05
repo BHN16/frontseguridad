@@ -65,7 +65,7 @@ function Login() {
             if (!err?.response) {
                 setErrMsg('No server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Invalid username or password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
