@@ -43,10 +43,10 @@ function ChartExample () {
   );
 }
 
-const key = JSON.parse(window.localStorage.getItem('user-session')).password;
 const COLORS = ['#1b1b', '#D82148'];
 
 function PasswordSecurities () {
+  const key = JSON.parse(window.localStorage.getItem('user-session')).password;
   const firstRender = useRef(true);
   const [myData, setMyData] = useState([
     { name: "Strong Passwords", value: 0 },

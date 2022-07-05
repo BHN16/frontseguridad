@@ -16,7 +16,7 @@ function App() {
       <Route element={<RequireAuth />}>
         <Route path='home' element={<Dashboard />}>
           <Route path='main' element={<Passwords />} />
-          <Route path='panel' element={<Panel />} />
+          {/* <Route path='panel' element={<Panel />} /> */}
           <Route path='form' element={<AddPassword />} />
         </Route>
       </Route>
