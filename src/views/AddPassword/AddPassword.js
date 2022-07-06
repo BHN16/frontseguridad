@@ -48,12 +48,12 @@ function AddPassword () {
             setRegistered('Contraseña guardada');
         } catch(err){
             if (!err?.response) {
-
+                
             } else if (err.response?.status === 400) {
                 console.log("bad request params");
             } else if (err.response?.status === 401) {
                 window.localStorage.removeItem('user-session');
-                let msg = 'session expired';
+                let msg = 'Session expired';
                 return navigate(`/${msg}`);
             } else {
 

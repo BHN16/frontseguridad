@@ -106,7 +106,8 @@ function EditPassword({ pid, website, username, bytes, passwords, setPasswords }
                 console.log("error");
             } else if (err.response?.status === 401) {
                 window.localStorage.removeItem('user-session');
-                return navigate('/');
+                let msg = 'Session expired';
+                return navigate(`/${msg}`);
             } else {
                 setErrMsg('Error en el servidor');
                 console.log("error");

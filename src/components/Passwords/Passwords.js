@@ -17,7 +17,7 @@ function Passwords () {
 
     const firstRender = useRef(true);
     const [show, setShow] = useState(false);
-    const [passwords, setPasswords] = useState([]);
+    const [passwords, setPasswords] = useState();
     const [filter, setFilter] = useState('');
     const [bytes, setBytes] = useState();
     
@@ -51,7 +51,8 @@ function Passwords () {
                 console.log("error");
             } else if (err.response?.status === 401) {
                 window.localStorage.removeItem('user-session');
-                return navigate('/');
+                let msg = 'Session expired';
+                return navigate(`/${msg}`);
             } else {
                 console.log("error");
             }
@@ -73,7 +74,8 @@ function Passwords () {
                 console.log("error");
             } else if (err.response?.status === 401) {
                 window.localStorage.removeItem('user-session');
-                return navigate('/');
+                let msg = 'Session expired';
+                return navigate(`/${msg}`);
             } else {
                 console.log("error");
             }
@@ -103,7 +105,7 @@ function Passwords () {
             </div>
             <div className='card-list'>
                 {
-                    passwords.length
+                    passwords
                         ? ( filter === ''
                             ? passwords.map((item) => {
                                 console.log(item)
@@ -155,9 +157,9 @@ function Passwords () {
                                             </div>
                                         </div>
                                     )
-                                })
+                            })
                         ) 
-                        : <> 
+                        : <>
                             <h1>Loading passwords</h1>
                         </>
                 }

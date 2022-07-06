@@ -9,7 +9,7 @@ const LOGIN_URL='https://squid-app-4c5rx.ondigitalocean.app/login';
 
 function Login() {
 
-    //let params = useParams();
+    let { msg } = useParams();
 
     let navigate = useNavigate();
     
@@ -20,23 +20,14 @@ function Login() {
     
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [errMsg, setErrMsg] = useState((msg==='Session expired')? msg : '');
     const [success, setSuccess] = useState('');
 
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
-        /*if (params?.msg === 'session expired') {
-            setErrMsg('Session expired');
-            errRef.current.focus();
-            return;
-        }*/
         userRef.current.focus();
     }, []); // Se le pasa un arreglo para que solo lo ejecute al actualizar la página
-
-    useEffect(() => {
-        setErrMsg('');
-    }, [user, pwd]);
 
     useEffect(() => {
         if (success) {
@@ -90,7 +81,9 @@ function Login() {
     return (
         <div className='container-login-container'>
             <div className='login-container'>
-                <p ref={ errRef } className={ errMsg ? 'errmsg' : 'offscreen' } aria-live='assertive'>{ errMsg }</p>
+                <p ref={ errRef } className={ (errMsg) ? 'errmsg' : 'offscreen' } aria-live='assertive'>
+                    { errMsg }
+                </p>
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit} className='login-form'>
                     <label htmlFor='username'>Email:</label>
