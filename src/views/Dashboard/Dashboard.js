@@ -13,47 +13,38 @@ function Dashboard () {
             <nav className="main-menu">
                 <ul>
                     <li>
-                        <a>
                             <Link to='main'>
                                 <i className="fa fa-home fa-2x"><BsFillHouseDoorFill /></i>
                                 <span className="nav-text">
                                     Dashboard
                                 </span>
                             </Link>
-                        </a>
                     </li>
                     <li className="has-subnav">
-                        <a>
                             <Link to='panel'>
                                 <i className="fa fa-laptop fa-2x"><BsCardList /></i>
                                 <span className="nav-text">
                                     Security Dashboard
                                 </span>
                             </Link>
-                        </a>  
                     </li>
                     <li className="has-subnav">
-                        <a>
                             <Link to='form'>
                                 <i className="fa fa-laptop fa-2x"><BsFillPlusCircleFill /></i>
                                 <span className="nav-text">
                                     New Password
                                 </span>
                             </Link>
-                        </a>
                         
                     </li>
                 </ul>
 
                 <ul className="logout">
                     <li className="has-subnav">
-                        <a href="#">
                         <i className="fa fa-list fa-2x"><BsFillQuestionCircleFill /></i>
                             <span className="nav-text">
                                 Help
                             </span>
-                        </a>
-                        
                     </li>
                     <li>
                     <a onClick={() => {

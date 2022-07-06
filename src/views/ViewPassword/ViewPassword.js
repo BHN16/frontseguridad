@@ -46,7 +46,6 @@ function ViewPassword({ website, username, bytes }) {
                             <div className="containerForm">
                                 <form onSubmit={handleDecrypt}>
                                     <div>
-                                        <p>
                                         Master Password: 
                                         <input 
                                             type={showPassword?'text':'password'}
@@ -57,7 +56,6 @@ function ViewPassword({ website, username, bytes }) {
                                             <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
                                             <input type='checkbox'  onChange={togglePassword}/>
                                         </div>
-                                        </p>
                                     </div>
                                     <div>
                                         <input type="submit" value="Submit"/>

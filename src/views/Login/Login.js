@@ -111,7 +111,7 @@ function Login() {
                 <p>
                     Need an account?<br />
                     <span className='line'>
-                        <a> <Link to='/register'>Register</Link></a>
+                        <Link to='/register'>Register</Link>
                     </span>
                 </p>
             </div>

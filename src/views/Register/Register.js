@@ -8,7 +8,6 @@ import axios from '../../api/axios';
 import './Register.css';
 import { clear } from '@testing-library/user-event/dist/clear';
 import { hashPassword } from '../../utils/Encription';
-//import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -152,7 +151,7 @@ function Register() {
                 <p>
                     Already registered? <br />
                     <span className='line'>
-                        <a><Link to='/'>Login</Link></a>
+                        <Link to='/'>Login</Link>
                     </span>
                 </p>
             </div>

@@ -103,7 +103,7 @@ function AddPassword () {
                             onChange={(e) => setUser(e.target.value)}
                         />
                     </p>
-                    <p>
+                    <div style={{ padding: 0, fontSize: '22px'}}>
                         Password:
                         <input 
                             type={showPassword?'text':'password'}
@@ -116,12 +116,14 @@ function AddPassword () {
                             <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
                             <input type='checkbox' onChange={togglePassword}/>
                         </div>
-                    </p>
-                    <div>
-                        <input type="submit" value="Save"/>
                     </div>
                     <div>
-                        <input type="reset" value="Cancel" onClick={cleanInputs}/>
+                        <div>
+                            <input type="submit" value="Save"/>
+                        </div>
+                        <div>
+                            <input type="reset" value="Cancel" onClick={cleanInputs}/>
+                        </div>
                     </div>
                     </form>
                 </div>
