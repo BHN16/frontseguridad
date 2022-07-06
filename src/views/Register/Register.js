@@ -144,6 +144,13 @@ function Register() {
                         matchFocus={ matchFocus }
                         showPassword={ showPassword }
                         setShowPassword={ setShowPassword } />
+                    
+                        <br/>
+                    <div style={{ padding: 0, fontSize: '17px'}}>
+                        <input type="checkbox" label='ABC' required />
+                        <span>Be carefull with your password, if you forget it you will lose your account.</span>    
+                    </div>
+                    
                     <button disabled={ !validName || !validPwd || !validMatch || !validEmail ? true : false} className='register-button'>
                         Sign up
                     </button>
