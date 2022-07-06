@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from '../../api/axios';
 import { AES_Encrypt } from '../../utils/Encription';
 import './AddPassword.css'
 
 const ADD_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function AddPassword () {
 
@@ -16,6 +19,9 @@ function AddPassword () {
     const [registered, setRegistered] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
+    const [pwdFocus, setPwdFocus] = useState(false);
+    const [validPwd, setValidPwd] = useState(false);
+
     const key = JSON.parse(window.localStorage.getItem('user-session')).password;
 
     const userRef = useRef();
@@ -23,6 +29,11 @@ function AddPassword () {
     useEffect(() => {
         userRef.current.focus();
     },[]);
+
+    useEffect(() => {
+        const result = PWD_REGEX.test(password);
+        setValidPwd(result);
+    }, [password]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,14 +116,34 @@ function AddPassword () {
                         />
                     </p>
                     <div style={{ padding: 0, fontSize: '22px'}}>
-                        Password:
+                        <label htmlFor='password'>
+                            Password:
+                            <span className={ validPwd ? 'valid' : 'hide' }>
+                                <FontAwesomeIcon icon={faCheck} />
+                                <p>Strong password</p>
+                            </span>
+                            <span className={ validPwd || !password ? 'hide' : 'invalid'}>
+                                <FontAwesomeIcon icon={faTimes} />
+                                    <p>Weak password</p>
+                            </span>
+                        </label>
                         <input 
                             type={showPassword?'text':'password'}
                             value={password}
                             style={{width:'100%'}} 
                             required
                             onChange={(e) => setPassword(e.target.value)}
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
                         />
+                        <p
+                            id='pwdnote' 
+                            className={ pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
+                            <FontAwesomeIcon icon={faInfoCircle}/>
+                            8 to 24 characters.<br/>
+                            Must include uppercase and lowercase letters, a number and a special character<br/>
+                            Allowed special characters: <span aria-label='exclamation mark'>!</span> <span aria-label='at symbol'>@</span> <span aria-label='hashtag'>#</span> <span aria-label='dollar-sign'>$</span> <span aria-label='percent'>%</span>
+                        </p>
                         <div style={{ padding: 0, fontSize: '17px'}}>
                             <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
                             <input type='checkbox' onChange={togglePassword}/>
