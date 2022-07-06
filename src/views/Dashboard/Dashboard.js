@@ -41,10 +41,12 @@ function Dashboard () {
 
                 <ul className="logout">
                     <li className="has-subnav">
-                        <i className="fa fa-list fa-2x"><BsFillQuestionCircleFill /></i>
+                        <Link to='help'>
+                            <i className="fa fa-list fa-2x"><BsFillQuestionCircleFill /></i>
                             <span className="nav-text">
                                 Help
                             </span>
+                        </Link>
                     </li>
                     <li>
                     <a onClick={() => {

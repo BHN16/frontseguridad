@@ -14,10 +14,6 @@ function Delete ({ pid, show, setShow}) {
         setOpen(false);
     }
 
-    const handleConfirm = () => {
-        deletePassword(pid);
-    }
-
     const deletePassword = async (pswd) => {
         try {
             const response = await axios.delete(DELETE_PASSWORD_URL,
@@ -55,9 +51,12 @@ function Delete ({ pid, show, setShow}) {
                                 <h1> Are you sure? </h1>
                                 </header>
                                 <div className="containerForm">
-                                    <form onSubmit={()=>handleConfirm(pid)}>
+                                    <form onSubmit={()=>deletePassword(pid)}>
                                         <div>
                                             <input type="submit" value="Confirm"/>
+                                        </div>
+                                        <div>
+                                            <input type="reset" value="Cancel" onClick={closeModal}/>
                                         </div>
                                     </form>
                                 </div>

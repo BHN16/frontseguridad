@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Passwords from './components/Passwords/Passwords';
 import Panel from './views/Panel/Panel';
 import AddPassword from './views/AddPassword/AddPassword';
+import Help from './views/Help/Help';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='main' element={<Passwords />} />
           <Route path='panel' element={<Panel />} />
           <Route path='form' element={<AddPassword />} />
+          <Route path='help' element={<Help />} />
         </Route>
       </Route>
     </Routes>

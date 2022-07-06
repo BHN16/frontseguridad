@@ -75,7 +75,8 @@ function Passwords () {
             <div className='card-list'>
                 {
                     passwords
-                        ? ( filter === ''
+                        ? (passwords.length > 0 ?
+                        ( filter === ''
                             ? passwords.map((item) => {
                                 console.log(item)
                                 return (
@@ -127,6 +128,10 @@ function Passwords () {
                                     )
                             })
                         ) 
+                        : <>
+                            <h1>No Passwords</h1>
+                        </>
+                        )
                         : <>
                             <h1>Loading passwords</h1>
                         </>
