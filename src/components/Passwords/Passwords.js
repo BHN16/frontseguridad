@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Popup from 'reactjs-popup';
 import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit, AiOutlineClose} from "react-icons/ai";
 import axios from '../../api/axios';
 import ViewPassword from '../../views/ViewPassword/ViewPassword';
 import EditPassword from '../../views/EditPassword/EditPassword';
+import Delete from '../../views/Delete/Delete';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
 const GET_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/creds/';
-const DELETE_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
 
 
 function Passwords () {
@@ -32,31 +31,6 @@ function Passwords () {
     useEffect(() => {
         getPasswords();
     }, [show]);
-
-    const deletePassword = async (pswd) => {
-        try {
-            const response = await axios.delete(DELETE_PASSWORD_URL,
-                {
-                    headers: {
-                        'Authorization': 'Bearer ' + JSON.parse(window.localStorage.getItem('user-session')).token,
-                        'Content-type': 'application/json',
-                    },
-                    data: {
-                        id: pswd
-                    }
-                });
-            setShow(!show);
-        } catch (err) {
-            if (!err?.response) {
-                console.log("error");
-            } else if (err.response?.status === 401) {
-                window.localStorage.removeItem('user-session');
-                return navigate('/');
-            } else {
-                console.log("error");
-            }
-        }
-    }
 
     const getPasswords = async (e) => {
         try {
@@ -89,10 +63,6 @@ function Passwords () {
         console.log(pswd);
     }
 
-    const prueba = () => {
-        console.log("hola");
-    }
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -122,7 +92,7 @@ function Passwords () {
                                                     <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                 </h3>
                                                 <p>{item.username}</p>
-                                                <i  className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiFillCloseCircle /></button></i>
+                                                <Delete pwd={item.id} />
                                                 <ViewPassword website={item.website} username={item.username} bytes={item.bytes}/>
                                                 <EditPassword pid={item.id} website={item.website} username={item.username} bytes={item.bytes} passwords={passwords} setPasswords={setPasswords}/>
                                             </div>
@@ -150,7 +120,6 @@ function Passwords () {
                                                         <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                     </h3>
                                                     <p>{item.username}</p>
-                                                    <i className='cancel-buttom'><button onClick={() => deletePassword(item.id)}><AiOutlineClose /></button></i>
                                                 </div>
                                             </div>
                                         </div>

@@ -46,7 +46,7 @@ function ViewPassword({ website, username, bytes }) {
     return(
         <>
             <i  className='view-buttom'><button className="button" onClick={() => setOpen(o => !o)}><AiFillLock /></button></i>
-            <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+            <Popup open={open} closeOnDocumentClick onClose={closeModal} modal>
                 <div className='modal-password'>
                     <div className='conteinerView'>
                         <div className='cointainerHeader'>
@@ -88,7 +88,6 @@ function ViewPassword({ website, username, bytes }) {
                                         </form>
                                     </div>
                                 }
-                            
                         </div>
                     </div>
                 </div>
