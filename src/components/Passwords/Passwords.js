@@ -92,7 +92,7 @@ function Passwords () {
                                                     <a href="https://www.linkedin.com/" target="_blank">{item.website}</a>
                                                 </h3>
                                                 <p>{item.username}</p>
-                                                <Delete pwd={item.id} />
+                                                <Delete pid={item.id} show={show} setShow={setShow} />
                                                 <ViewPassword website={item.website} username={item.username} bytes={item.bytes}/>
                                                 <EditPassword pid={item.id} website={item.website} username={item.username} bytes={item.bytes} passwords={passwords} setPasswords={setPasswords}/>
                                             </div>

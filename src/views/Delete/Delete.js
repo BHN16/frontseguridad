@@ -5,18 +5,17 @@ import Popup from 'reactjs-popup';
 import { AiFillLock, AiFillCloseCircle, AiTwotoneEdit, AiOutlineClose} from "react-icons/ai";
 const DELETE_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
 
-function Delete ({ pwd }) {
+function Delete ({ pid, show, setShow}) {
     let navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
-    const [show, setShow] = useState(false);
 
     const closeModal = () => {
         setOpen(false);
     }
 
     const handleConfirm = () => {
-        deletePassword(pwd);
+        deletePassword(pid);
     }
 
     const deletePassword = async (pswd) => {
@@ -55,7 +54,7 @@ function Delete ({ pwd }) {
                                 <h1> Edit Password </h1>
                                 </header>
                                 <div className="containerForm">
-                                    <form onSubmit={handleConfirm}>
+                                    <form onSubmit={()=>handleConfirm(pid)}>
                                         <div>
                                             <input type="submit" value="Confirm"/>
                                         </div>
