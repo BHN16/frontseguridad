@@ -53,7 +53,8 @@ function AddPassword () {
                 console.log("bad request params");
             } else if (err.response?.status === 401) {
                 window.localStorage.removeItem('user-session');
-                return navigate('/');
+                let msg = 'session expired';
+                return navigate(`/${msg}`);
             } else {
 
             }

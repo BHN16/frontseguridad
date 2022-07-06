@@ -12,6 +12,7 @@ function App() {
   return (
     <Routes>
       <Route path='' element={<Login />} />
+      <Route path=':msg' element={<Login />} />
       <Route path='register' element={<Register />} />
       <Route element={<RequireAuth />}>
         <Route path='home' element={<Dashboard />}>

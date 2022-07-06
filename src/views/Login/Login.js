@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 import { hashPassword } from '../../utils/Encription';
@@ -8,6 +8,8 @@ import './Login.css';
 const LOGIN_URL='https://squid-app-4c5rx.ondigitalocean.app/login';
 
 function Login() {
+
+    //let params = useParams();
 
     let navigate = useNavigate();
     
@@ -24,6 +26,11 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
+        /*if (params?.msg === 'session expired') {
+            setErrMsg('Session expired');
+            errRef.current.focus();
+            return;
+        }*/
         userRef.current.focus();
     }, []); // Se le pasa un arreglo para que solo lo ejecute al actualizar la página
 
@@ -70,6 +77,7 @@ function Login() {
                 setErrMsg('Unauthorized');
             } else {
                 setErrMsg('Login failed');
+                console.log(err.response);
             }
             errRef.current.focus();
         }
