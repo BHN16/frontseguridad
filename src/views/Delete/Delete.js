@@ -51,7 +51,7 @@ function Delete ({ pid, show, setShow}) {
                         <div className="cointainerHeader">
                             <div className='conteinerEdit'>
                                 <header>
-                                <h1> Edit Password </h1>
+                                <h1> Are you sure? </h1>
                                 </header>
                                 <div className="containerForm">
                                     <form onSubmit={()=>handleConfirm(pid)}>
