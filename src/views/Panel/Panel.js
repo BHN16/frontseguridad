@@ -5,7 +5,7 @@ import axios from '../../api/axios';
 import { AES_Decrypt, hashPassword } from '../../utils/Encription';
 import './Panel.css'
 
-const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
+const GET_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/creds/';
 const PWD_1 = /^(?=.*[a-z])/;
 const PWD_2 = /^(?=.*[A-Z])/;
 const PWD_3 = /^(?=.*[0-9])/;

@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import { hashPassword } from '../../utils/Encription';
 import './Login.css';
 
-const LOGIN_URL='http://137.184.83.170/login';
+const LOGIN_URL='https://squid-app-4c5rx.ondigitalocean.app/login';
 
 function Login() {
 

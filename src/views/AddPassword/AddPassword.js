@@ -4,7 +4,7 @@ import axios from '../../api/axios';
 import { AES_Encrypt } from '../../utils/Encription';
 import './AddPassword.css'
 
-const ADD_PASSWORD_URL = 'http://137.184.83.170/cred/';
+const ADD_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
 
 function AddPassword () {
 

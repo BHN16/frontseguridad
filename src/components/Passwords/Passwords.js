@@ -7,8 +7,8 @@ import ViewPassword from '../../views/ViewPassword/ViewPassword';
 import EditPassword from '../../views/EditPassword/EditPassword';
 import './Password.css'
 // Response 401, redirigir por expiracion del token
-const GET_PASSWORD_URL = 'http://137.184.83.170/creds/';
-const DELETE_PASSWORD_URL = 'http://137.184.83.170/cred/';
+const GET_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/creds/';
+const DELETE_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
 
 
 function Passwords () {

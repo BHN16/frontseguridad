@@ -6,7 +6,7 @@ import axios from '../../api/axios';
 import { AES_Decrypt, AES_Encrypt, hashPassword } from '../../utils/Encription';
 import './EditPassword.css'
 
-const EDIT_PASSWORD_URL = 'http://137.184.83.170/cred/';
+const EDIT_PASSWORD_URL = 'https://squid-app-4c5rx.ondigitalocean.app/cred/';
 
 function EditPassword({ pid, website, username, bytes, passwords, setPasswords }) {
 
