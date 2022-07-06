@@ -30,7 +30,10 @@ function EditPassword({ pid, website, username, bytes, passwords, setPasswords }
 
     const [pwdFocus, setPwdFocus] = useState(false);
 
-    const closeModal = () => setOpen(false);
+    const closeModal = () => {
+        resetForm();
+        setOpen(false);
+    }
 
     const userRef = useRef();
     const errRef = useRef();

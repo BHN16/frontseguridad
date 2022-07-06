@@ -8,28 +8,40 @@ function ViewPassword({ website, username, bytes }) {
 
     const INITIAL_STATE = bytes;
 
-    const [decrypt, setDecrypt] = useState(bytes);
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState();
+    const [masterPassword, setMasterPassword] = useState('');
+    const [showView, setShowView] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [open, setOpen] = useState(false);
 
     const closeModal = () => {
-        setPassword('');
+        setMasterPassword('');
         setOpen(false);
+        setShowView(false);
+        setPassword(INITIAL_STATE);
+    }
+
+    const handleMasterPassword = (e) => {
+        e.preventDefault();
+        if (hashPassword(hashPassword(masterPassword)) === JSON.parse(window.localStorage.getItem('user-session')).password) {
+            setPassword(AES_Decrypt(bytes, hashPassword(hashPassword(masterPassword))));
+            setShowPassword(false);
+            setShowView(true);
+            console.log(password);
+        } else {
+            console.log('Clave incorrecta');
+        }
     }
 
     const handleDecrypt = (e) => {
         e.preventDefault();
-        setDecrypt(AES_Decrypt(decrypt, hashPassword(hashPassword(password))));
+        setPassword(AES_Decrypt(password, hashPassword(hashPassword(password))));
     }
 
     const togglePassword = () => {
         setShowPassword(!showPassword);
     }
 
-    useEffect(() => {
-        setDecrypt(INITIAL_STATE)
-    }, [password])
 
     return(
         <>
@@ -43,36 +55,40 @@ function ViewPassword({ website, username, bytes }) {
                             </header>
                         </div>
                         <div className='containerPassBody'>
-                            <div className="containerForm">
-                                <form onSubmit={handleDecrypt}>
-                                    <div>
-                                        Master Password: 
-                                        <input 
-                                            type={showPassword?'text':'password'}
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            />
-                                        <div style={{ padding: 0, fontSize: '17px'}}> 
-                                            <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
-                                            <input type='checkbox'  onChange={togglePassword}/>
+                                {
+                                    (showView) ? 
+                                    <div className='containerContent'>
+                                        <div>
+                                            <h4 className='col'>Page:</h4><p className='col'> { website } </p>
                                         </div>
+                                        <div>
+                                            <h4 className='col'>User/Email:</h4><p className='col'> { username } </p> 
+                                        </div>
+                                        <div>
+                                            <h4 className='col'>Password:</h4><p className='col'> { password } </p>
+                                        </div>
+                                    </div> : 
+                                    <div className="containerForm">
+                                        <form onSubmit={handleMasterPassword}>
+                                            <div>
+                                                Master Password: 
+                                                <input 
+                                                    type={showPassword?'text':'password'}
+                                                    value={masterPassword}
+                                                    onChange={(e) => setMasterPassword(e.target.value)}
+                                                    />
+                                                <div style={{ padding: 0, fontSize: '17px'}}> 
+                                                    <span>{showPassword? <>Hide password</> : <>Show password</>}</span>    
+                                                    <input type='checkbox'  onChange={togglePassword}/>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input type="submit" value="Submit"/>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div>
-                                        <input type="submit" value="Submit"/>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className='containerContent'>
-                                <div>
-                                    <h4 className='col'>Page:</h4><p className='col'> { website } </p>
-                                </div>
-                                <div>
-                                    <h4 className='col'>User/Email:</h4><p className='col'> { username } </p> 
-                                </div>
-                                <div>
-                                    <h4 className='col'>Password:</h4><p className='col'> { decrypt } </p>
-                                </div>
-                            </div>
+                                }
+                            
                         </div>
                     </div>
                 </div>
