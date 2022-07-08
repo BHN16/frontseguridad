@@ -1,19 +1,19 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Username from './Username';
-import Email from './Email';
-import Password from './Password';
-import MatchPwd from './MartchPwd';
+import Username from '../../components/Register/Username';
+import Email from '../../components/Register/Email';
+import Password from '../../components/Register/Password';
+import MatchPwd from '../../components/Register/MatchPwd';
 import axios from '../../api/axios';
 import './Register.css';
 import { clear } from '@testing-library/user-event/dist/clear';
-//import { Link } from 'react-router-dom';
+import { hashPassword } from '../../utils/Encription';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/;
 
-const REGISTER_URL = 'http://137.184.83.170:5000/auth';
+const REGISTER_URL = 'https://squid-app-4c5rx.ondigitalocean.app/auth';
 
 function Register() {
 
@@ -40,6 +40,8 @@ function Register() {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -77,11 +79,6 @@ function Register() {
         setPwd('');
         setMatchPwd('');
     }
-
-    const hashPassword = (p) => {
-        var crypto = require('crypto-js');
-        return crypto.SHA256(p).toString();
-    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -96,17 +93,16 @@ function Register() {
                     }),
                     {
                         headers: { 'Content-type': 'application/json' }
-                    });
-            //console.log(JSON.stringify(response?.data));
+                    }
+            );
             console.log(hashedPassword);
-            //console.log('asdf');
             setSuccess(true);
             clearFields();
         } catch (err) {
             if(!err?.response) {
                 setErrMsg('No server respone');
-            } else if(err.response?.status === 409) {
-                setErrMsg('Username taken');
+            } else if(err.response?.status === 400) {
+                setErrMsg('Bad signup request params');
             } else {
                 setErrMsg('Registration failed');
                 console.log(err.response);
@@ -121,11 +117,11 @@ function Register() {
                 <h1>Register</h1>
                 <form onSubmit={ handleSubmit } className='register-form'>
                     <Username 
-                        validName={ validName } 
-                        userRef={ userRef } 
-                        setUser={ setUser } 
-                        setUserFocus={ setUserFocus } 
-                        userFocus={ userFocus } 
+                        validName={ validName }
+                        userRef={ userRef }
+                        setUser={ setUser }
+                        setUserFocus={ setUserFocus }
+                        userFocus={ userFocus }
                         user={ user } />
                     <Email 
                         validEmail={ validEmail }
@@ -138,13 +134,23 @@ function Register() {
                         setPwd={ setPwd } 
                         setPwdFocus={ setPwdFocus } 
                         pwdFocus={ pwdFocus } 
-                        pwd={ pwd } />
+                        pwd={ pwd } 
+                        showPassword={ showPassword } />
                     <MatchPwd
                         validMatch={ validMatch}
                         matchPwd={ matchPwd }
                         setMatchPwd={ setMatchPwd }
                         setMatchFocus={ setMatchFocus }
-                        matchFocus={ matchFocus } />
+                        matchFocus={ matchFocus }
+                        showPassword={ showPassword }
+                        setShowPassword={ setShowPassword } />
+                    
+                        <br/>
+                    <div style={{ padding: 0, fontSize: '17px'}}>
+                        <input type="checkbox" label='ABC' required />
+                        <span>Be carefull with your password, if you forget it you will lose your account.</span>    
+                    </div>
+                    
                     <button disabled={ !validName || !validPwd || !validMatch || !validEmail ? true : false} className='register-button'>
                         Sign up
                     </button>
@@ -152,7 +158,7 @@ function Register() {
                 <p>
                     Already registered? <br />
                     <span className='line'>
-                        <a><Link to='/'>Login</Link></a>
+                        <Link to='/'>Login</Link>
                     </span>
                 </p>
             </div>
@@ -161,41 +167,3 @@ function Register() {
 }
 
 export default Register;
-
-    /*return (
-<Link to='/login'>Login</Link>
-        <div>
-        Pagina de register
-        <nav>
-        <Link to='/'>home</Link>
-        </nav>
-        </div>
-        )
-        <label htmlFor='username'>
-            Username
-            <span className={ validName ? 'valid' : 'hide' }>
-                <FontAwesomeIcon icon={faCheck} />
-            </span>
-            <span className={ validName || !user ? 'hide' : 'invalid'}>
-                <FontAwesomeIcon icon={faTimes} />
-            </span>
-        </label>
-        <input 
-            type='text' 
-            id='username' 
-            ref={userRef}
-            autoComplete='off'
-            onChange={(e) => setUser(e.target.value)}
-            required
-            aria-invalid={validName ? 'false' : 'true'}
-            aria-describedby='uidnote'
-            onFocus={() => setUserFocus(true)}
-            onBlur={() => setUserFocus(false)} />
-        <p
-            id='uidnote' 
-            className={ userFocus && user && !validName ? 'instructions' : 'offscreen'}>
-            <FontAwesomeIcon icon={faInfoCircle}/>
-            4 to 14 characters.<br/>
-            Must begin with a letter.<br/>
-            Letters, numbers, underscores, hyphens allowed.
-        </p>*/
